@@ -1,9 +1,8 @@
-import {Form} from './components/form/index';
-
+import { AppRoutes } from './routes';
 const App = () => {
   return (
     <div>
-      <Form />
+      <AppRoutes/>
     </div>
   )
 }
