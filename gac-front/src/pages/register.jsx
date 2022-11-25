@@ -4,48 +4,34 @@ import { DFlex, FormComponent } from "../components/form/styled"
 import { Input } from "../components/input"
 
 export const Register = () =>{
-    const [name,setName] = useState('')
-    const [user,setUser] = useState('')
-    const [CPF,setCPF] = useState('')
-    const [password,setPassword] = useState({
-        first: '',
-        verify: ''
+    const [user,setUser] = useState({
+        name : '',
+        username: '',
+        CPF : '',
+        password: {
+            first: '',
+            verify: ''
+        }
     })
 
-    const handleName = ({target}) =>{
-        setName(target.value)
-    }
-    const handleUser = ({target}) =>{
-        setUser(target.value)
-    }
-    const handleCPF = ({target}) =>{
-        setCPF(target.value)
-    }
-    const handlePassword = ({target}) =>{
-        setPassword(password =>({
-            fisrt : target.value
-        }))
-    }
-    const handleRepeat = ({target}) =>{
-        setPassword(password =>({
-            verify : target.value
-        }))
+    const handleChange = (e)=>{
+        const {name, value} = e.target
+        setUser({
+            ...user,
+            [name] : value
+        })
     }
     const handleRegister = ()=>{
-        alert(name)
-        alert(user)
-        alert(CPF)
-        alert(password.first)
-        alert(password.verify)
+        console.log(user)
     }
     return(
         <FormComponent>
             <DFlex>
-                <Input label={'Nome:'} type={'text'} onChange={handleName}/>
-                <Input label={'Nome usuário:'} type={'text'} onChange={handleUser}/>
-                <Input label={'CPF:'} type={'text'} onChange={handleCPF}/>
-                <Input label={'Senha:'} type={'password'} onChange={handlePassword}/>
-                <Input label={'Repetir Senha:'} type={'password'} onChange={handleRepeat}/>
+                <Input label={'Nome:'} name={'name'} type={'text'} onChange={handleChange}/>
+                <Input label={'Nome usuário:'} name={'username'} type={'text'} onChange={handleChange}/>
+                <Input label={'CPF:'} name={'CPF'} type={'text'} onChange={handleChange}/>
+                <Input label={'Senha:'} name={'fisrt'} type={'password'} onChange={handleChange}/>
+                <Input label={'Repetir Senha:'} name={'verify'} type={'password'} onChange={handleChange}/>
                 <Primary label={'Enviar'} onClick={handleRegister}/>
             </DFlex>            
         </FormComponent>
