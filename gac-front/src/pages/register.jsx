@@ -8,10 +8,8 @@ export const Register = () =>{
         name : '',
         username: '',
         CPF : '',
-        password: {
-            first: '',
-            verify: ''
-        }
+        first: '',
+        verify: ''
     })
 
     const handleChange = (e)=>{
@@ -22,7 +20,10 @@ export const Register = () =>{
         })
     }
     const handleRegister = ()=>{
-        console.log(user)
+        if(user.first === user.verify){
+            console.log(user)
+        }
+        alert('Senhas diferentes')        
     }
     return(
         <FormComponent>
@@ -30,7 +31,7 @@ export const Register = () =>{
                 <Input label={'Nome:'} name={'name'} type={'text'} onChange={handleChange}/>
                 <Input label={'Nome usuário:'} name={'username'} type={'text'} onChange={handleChange}/>
                 <Input label={'CPF:'} name={'CPF'} type={'text'} onChange={handleChange}/>
-                <Input label={'Senha:'} name={'fisrt'} type={'password'} onChange={handleChange}/>
+                <Input label={'Senha:'} name={'first'} type={'password'} onChange={handleChange}/>
                 <Input label={'Repetir Senha:'} name={'verify'} type={'password'} onChange={handleChange}/>
                 <Primary label={'Enviar'} onClick={handleRegister}/>
             </DFlex>            
