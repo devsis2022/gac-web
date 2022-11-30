@@ -5,7 +5,7 @@ export const FormComponent = styled.div`
     background-color: #e4ecec;
     border: #6c7e92 solid 2px;
     border-radius: 2px;
-    height: 90vw;
+    height: 90vh;
     width:100vw;
 
     input{
@@ -25,11 +25,6 @@ export const DFlex = styled.div`
     flex-direction:column;
     justify-content: center;
     align-items: center;
-
-    a{
-        padding-top: 5%;
-        
-    }
 `
 
 export const FJustify = styled.div`
