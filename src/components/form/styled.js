@@ -37,25 +37,65 @@ export const FCenter = styled.div`
 export const Dados = styled.div`
     width: 40vw;
     height: 100vh;
-    background-color: #fcfcd7;
+    background-color: #fffffd;
 
     h1{
         font-size: 6vh;
         font-weight: 300;
+        margin-bottom: 8%;
     }
 
-    input{
-        background-color: #f7dfdf;
-        border:1px solid #bbbbbb;
+    label{
         height: 8%;
         width: 80%;
-        border-radius: 5px;
-        font-weight: 500;
-        letter-spacing: 1.5px;
+
+        margin-bottom: 40px;
+        position: relative;    
     }
 
-    input:focus{
-        border:2px solid #bbbbbb;
+    label input{
+        background-color: transparent;
+        border:1px solid #bbbbbb;
+        height:100%;
+        width:100%;
+        border-radius: 8px;
+
+        margin: 0;
+
+        font-weight: 500;
+        font-size: 2.2vh;
+        letter-spacing: 1.8px;
+        text-indent: 11%;
+        color: #333;
+
+        position: absolute;
+        left: 0;
+    }
+
+    label input::placeholder{
+        font-weight: 200;
+        color: #767676;
+    }
+
+    label input:focus{
+        border:1px solid #333;
+    }
+    
+    label .fa{
+        position: absolute;
+        left: 3.4%;
+        top: 30%;
+        height: 35%;
+        z-index: 1;
+    }
+
+    label .fa, label input::placeholder{
+        color: #a5a5a5;
+    }
+
+    
+    @media only screen and (max-width: 900px) {
+        width: 100vw;
     }
 `
 
@@ -67,8 +107,13 @@ export const FormLogin = styled.div`
 
 export const Welcome = styled.div`
     width: 60vw;
-    
+    color:white;
     h1{
         font-weight: 400;
+    }
+
+    @media only screen and (max-width: 900px) {
+        background-color: black;
+        display: none;
     }
 `

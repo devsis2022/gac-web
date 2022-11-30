@@ -2,6 +2,8 @@ import { Primary } from "../components/buttons/Primary";
 import { FormLogin, FJustify, FCenter, Dados, Welcome } from '../components/form/styled';
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 export const Login = ()=>{
     const [user,setUser] = useState('')
@@ -30,10 +32,18 @@ export const Login = ()=>{
                 <Dados>
                     <FCenter>
                         <h1>LOGIN</h1>
-                        <input type="text"      placeholder="Digite seu email ou usuário" />
-                        <input type="password"  placeholder="Digite sua senha" />
+
+                        <label for="user">
+                            <FontAwesomeIcon className="fa" icon={faUser} />
+                            <input name="user" id="user" type="text" placeholder="Digite seu email ou usuário"/>                        
+                        </label>
+
+                        <label for="password">
+                            <input type="password"  placeholder="Digite sua senha" />
+                        </label>
+
                     </FCenter>
-                </Dados>
+                </Dados> 
             </FJustify>
         </FormLogin>
     )
