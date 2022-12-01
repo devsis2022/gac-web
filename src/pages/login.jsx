@@ -3,7 +3,7 @@ import { FormLogin, FJustify, FCenter, Dados, Welcome } from '../components/form
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
 
 export const Login = ()=>{
     const [user,setUser] = useState('')
@@ -31,17 +31,19 @@ export const Login = ()=>{
 
                 <Dados>
                     <FCenter>
-                        <h1>LOGIN</h1>
-
+                        {/* <h1>Login</h1> */}
+                        <Input />
                         <label for="user">
                             <FontAwesomeIcon className="fa" icon={faUser} />
                             <input name="user" id="user" type="text" placeholder="Digite seu email ou usuário"/>                        
                         </label>
 
                         <label for="password">
-                            <input type="password"  placeholder="Digite sua senha" />
+                            <FontAwesomeIcon className="fa" icon={faLock} />
+                            <input name="password" id="password" type="password"  placeholder="Digite sua senha" />
                         </label>
-
+                        {/* <button className="button-primary">Logar</button> */}
+                        <Primary value={'fsdfsdfsdfsdfs'}></Primary>
                     </FCenter>
                 </Dados> 
             </FJustify>

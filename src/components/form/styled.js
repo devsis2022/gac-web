@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-
 export const FormComponent = styled.div`    
     margin:0;
 `
@@ -34,6 +33,19 @@ export const FCenter = styled.div`
     justify-content: center;
 `
 
+export const Welcome = styled.div`
+    width: 60vw;
+    color:white;
+    h1{
+        font-weight: 300;
+    }
+
+    @media only screen and (max-width: 900px) {
+        background-color: black;
+        display: none;
+    }
+`
+
 export const Dados = styled.div`
     width: 40vw;
     height: 100vh;
@@ -41,8 +53,12 @@ export const Dados = styled.div`
 
     h1{
         font-size: 6vh;
-        font-weight: 300;
+        font-weight: 500;
         margin-bottom: 8%;
+        font-family: 'Poppins', sans-serif;
+
+        text-align: left;
+        width: 80%;
     }
 
     label{
@@ -54,7 +70,7 @@ export const Dados = styled.div`
     }
 
     label input{
-        background-color: transparent;
+        background-color: #f5f5f575;
         border:1px solid #bbbbbb;
         height:100%;
         width:100%;
@@ -62,14 +78,14 @@ export const Dados = styled.div`
 
         margin: 0;
 
-        font-weight: 500;
-        font-size: 2.2vh;
         letter-spacing: 1.8px;
         text-indent: 11%;
         color: #333;
 
         position: absolute;
         left: 0;
+        transition: .2s;
+
     }
 
     label input::placeholder{
@@ -77,8 +93,10 @@ export const Dados = styled.div`
         color: #767676;
     }
 
-    label input:focus{
-        border:1px solid #333;
+    label input:focus, label input:hover{
+        background-color: white;
+        box-shadow: 3px 3px 6px #888888;
+        transition: .3s;
     }
     
     label .fa{
@@ -89,10 +107,26 @@ export const Dados = styled.div`
         z-index: 1;
     }
 
+    .button-primary{
+        width: 50%;
+        height: 6%;
+
+        background-color:#00a9d4 ;
+        border: none;
+    }
+
+    .button-primary:active{
+        background-color:#767676 ;
+    }
+
     label .fa, label input::placeholder{
         color: #a5a5a5;
     }
 
+    label input, .button-primary{
+        font-size: 2.2vh;
+        font-weight: 500;
+    }
     
     @media only screen and (max-width: 900px) {
         width: 100vw;
@@ -105,15 +139,3 @@ export const FormLogin = styled.div`
     background-color: #00a9d4;
 `
 
-export const Welcome = styled.div`
-    width: 60vw;
-    color:white;
-    h1{
-        font-weight: 400;
-    }
-
-    @media only screen and (max-width: 900px) {
-        background-color: black;
-        display: none;
-    }
-`
