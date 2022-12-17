@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Primary } from "../components/buttons/Primary"
-import { DFlex, FormComponent } from "../components/form/styled"
 import { Input } from "../components/input"
+import { FormLogin, FJustify, FCenter, Dados, Welcome } from '../components/form/styled';
 
 export const Register = () =>{
     const [user,setUser] = useState({
@@ -20,21 +20,31 @@ export const Register = () =>{
         })
     }
     const handleRegister = ()=>{
-        if(user.first === user.verify){
-            console.log(user)
-        }
-        alert('Senhas diferentes')        
+        user.first === user.verify
+        ?console.log(user)
+        :alert('Senhas diferentes')        
     }
     return(
-        <FormComponent>
-            <DFlex>
-                <Input label={'Nome:'} name={'name'} type={'text'} onChange={handleChange}/>
-                <Input label={'Nome usuário:'} name={'username'} type={'text'} onChange={handleChange}/>
-                <Input label={'CPF:'} name={'CPF'} type={'text'} onChange={handleChange}/>
-                <Input label={'Senha:'} name={'first'} type={'password'} onChange={handleChange}/>
-                <Input label={'Repetir Senha:'} name={'verify'} type={'password'} onChange={handleChange}/>
-                <Primary label={'Enviar'} onClick={handleRegister}/>
-            </DFlex>            
-        </FormComponent>
+        <FormLogin>
+            <FJustify>
+                <Welcome>
+                    <FCenter>
+                        <h1>Welcome to Gac!</h1>
+                        <h2>Realize sua incrição</h2>
+                    </FCenter>
+                </Welcome>
+
+                <Dados>
+                    <FCenter>
+                    <Input placeholder={'Nome:'} name={'name'} type={'text'} faIcon={''} onChange={handleChange}/>
+                    <Input placeholder={'Nome usuário:'} name={'username'} type={'text'} faIcon={''} onChange={handleChange}/>
+                    <Input placeholder={'CPF:'} name={'CPF'} type={'text'} faIcon={''} onChange={handleChange}/>
+                    <Input placeholder={'Senha:'} name={'first'} type={'password'} faIcon={''} onChange={handleChange}/>
+                    <Input placeholder={'Repetir Senha:'} name={'verify'} type={'password'} faIcon={''} onChange={handleChange}/>
+                    <Primary label={'Enviar'} onClick={handleRegister}/>
+                    </FCenter>
+                    </Dados> 
+                </FJustify>
+        </FormLogin>
     )
 }

@@ -31,8 +31,6 @@ export const Login = ()=>{
 
                 <Dados>
                     <FCenter>
-                        {/* <h1>Login</h1> */}
-                        <Input />
                         <label for="user">
                             <FontAwesomeIcon className="fa" icon={faUser} />
                             <input name="user" id="user" type="text" placeholder="Digite seu email ou usuário"/>                        
@@ -43,7 +41,7 @@ export const Login = ()=>{
                             <input name="password" id="password" type="password"  placeholder="Digite sua senha" />
                         </label>
                         {/* <button className="button-primary">Logar</button> */}
-                        <Primary value={'fsdfsdfsdfsdfs'}></Primary>
+                        <Primary label={'Enviar'}></Primary>
                     </FCenter>
                 </Dados> 
             </FJustify>

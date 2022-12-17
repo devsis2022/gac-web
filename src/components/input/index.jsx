@@ -1,11 +1,11 @@
-import { FJustify } from "../form/styled"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const Input = ({label,type,name,placeholder, onChange})=>{
+export const Input = ({type,name,placeholder, onChange, faIcon})=>{
 
     return(
-        <FJustify>
-            <label>{label}</label>
+        <label>
+            <FontAwesomeIcon className="fa" icon={faIcon} />
             <input type={type} name={name} placeholder={placeholder} onChange={onChange}/>
-        </FJustify>            
+        </label>            
     )
 }
