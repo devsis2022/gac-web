@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
+import { Secondary } from "../components/buttons/Secondary";
 
 export const Login = ()=>{
     const [user,setUser] = useState('')
@@ -40,8 +41,8 @@ export const Login = ()=>{
                             <FontAwesomeIcon className="fa" icon={faLock} />
                             <input name="password" id="password" type="password"  placeholder="Digite sua senha" />
                         </label>
-                        {/* <button className="button-primary">Logar</button> */}
-                        <Primary label={'Enviar'}></Primary>
+                        <Primary label={'Enviar'}/>
+                        <Secondary label={'Cadastrar'}/>
                     </FCenter>
                 </Dados> 
             </FJustify>
