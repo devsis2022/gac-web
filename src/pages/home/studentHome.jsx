@@ -1,4 +1,4 @@
-
+import { Profile } from "../../components/profile"
 
 export const StudentHome = ()=>{
 
@@ -6,7 +6,7 @@ export const StudentHome = ()=>{
 
     return(
         <div>
-            <h1>studentHome</h1>
+            <Profile/>
         </div>
     )
 }
