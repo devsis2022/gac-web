@@ -1,7 +1,7 @@
 import { Primary } from "../components/buttons/Primary";
 import { FormLogin, FJustify, FCenter, Dados, Welcome } from '../components/form/styled';
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
 import { Secondary } from "../components/buttons/Secondary";
@@ -49,10 +49,3 @@ export const Login = ()=>{
         </FormLogin>
     )
 }
-
-{/* <Input label={'Nome ou email:'} type={'text'} onChange={handleUser}/>
-                <Input label={'Senha:'} type={'password'} onChange={handlePassword}/>               
-                <FJustify>
-                    <Primary label={'Enviar'} onClick={handleLogin}/>
-                </FJustify>
-                <Link to='/register'>Não possuo cadastro</Link> */}
