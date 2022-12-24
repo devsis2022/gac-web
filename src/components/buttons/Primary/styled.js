@@ -5,7 +5,8 @@ export const ButtonPrimary = styled.button`
     color:white;
     border: 1px solid #d3d3d3;
     border-radius: 4px;
-    padding: 10px 25px;
+    padding: 13px 45px;
+    margin-bottom: 30px;
     font-weight: 300px;
     font-size: 16px;
     &:hover{
