@@ -9,6 +9,4 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>
 }
 
-export { AuthContext }
-
-
+export const AuthConsumer = () => React.useContext(AuthContext)

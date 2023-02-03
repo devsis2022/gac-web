@@ -1,14 +1,14 @@
 import { Primary } from '../components/buttons/Primary'
 import { FormLogin, FJustify, FCenter, Dados, Welcome } from '../components/form/styled'
-import { useState, useContext, useCallback, useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState, useCallback, useEffect } from 'react'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
 import { Secondary } from '../components/buttons/Secondary'
 import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/authContext'
+import { AuthConsumer } from '../context/authContext'
+import { Input } from '../components/input'
 
 export const Login = () => {
-  const { login, mainRole, authed } = useContext(AuthContext)
+  const { login, authed } = AuthConsumer()
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -30,18 +30,16 @@ export const Login = () => {
     return navigate('/register')
   }
 
-  const goToHome = useCallback(
-    (mainRole) => {
-      navigate(`/${mainRole}`)
-    },
-    [navigate]
-  )
+  const goToHome = useCallback(() => {
+    const mainRole = localStorage.getItem('mainRole')
+    if (!mainRole) return navigate('/role-choice')
+    return navigate(`/${mainRole}`)
+  }, [navigate])
 
   useEffect(() => {
-    if (!authed || !mainRole) return
-    console.log(`useEffect`, mainRole)
-    goToHome(mainRole)
-  }, [mainRole, authed, goToHome])
+    if (!authed) return
+    goToHome()
+  }, [authed, goToHome])
 
   return (
     <FormLogin>
@@ -54,27 +52,22 @@ export const Login = () => {
 
         <Dados>
           <FCenter>
-            <label htmlFor="user">
-              <FontAwesomeIcon className="fa" icon={faUser} />
-              <input
-                id="user"
-                name="user"
-                type="text"
-                placeholder="Digite seu email ou usuário"
-                onChange={handleUser}
-              />
-            </label>
+            <Input
+              name="user"
+              type="text"
+              placeholder="Digite seu email ou usuário"
+              onChange={handleUser}
+              faIcon={faUser}
+            />
 
-            <label htmlFor="password">
-              <FontAwesomeIcon className="fa" icon={faLock} />
-              <input
-                name="password"
-                id="password"
-                type="password"
-                placeholder="Digite sua senha"
-                onChange={handlePassword}
-              />
-            </label>
+            <Input
+              name="password"
+              id="password"
+              type="password"
+              placeholder="Digite sua senha"
+              onChange={handlePassword}
+              faIcon={faLock}
+            />
             <Primary label={'Enviar'} onClick={handleLogin} />
             <Secondary label={'Cadastrar'} onClick={goToRegister} />
           </FCenter>

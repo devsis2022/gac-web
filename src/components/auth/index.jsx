@@ -1,9 +1,7 @@
-import { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
-import { AuthContext } from '../../context/authContext'
+import { AuthConsumer } from '../../context/authContext'
 
 export const RequireAuth = ({ children }) => {
-  const { authed } = useContext(AuthContext)
-
+  const { authed } = AuthConsumer()
   return authed ? children : <Navigate to="/login" replace />
 }

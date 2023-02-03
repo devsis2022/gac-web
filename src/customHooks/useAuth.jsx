@@ -1,24 +1,21 @@
 import * as React from 'react'
-import axios from 'axios'
+import { publicInstance } from '../service/axios'
 
 export const useAuth = () => {
   const [authed, setAuthed] = React.useState(false)
-  const [mainRole, setMainRole] = React.useState('')
-
-  const getMainRole = (roles) => {
-    return roles[0]
-  }
 
   const login = async (user, password) => {
-    // fazer a request para receber o token do usuário
-    const response = await axios.post('http://localhost:9000/auth/login', { user, password })
-    console.log(response)
-    // persistir o token da session storage
-    // setar role principal
-    setAuthed(true)
-    setMainRole(getMainRole(['admin']))
-    // devolver o token
-    return 'token'
+    try {
+      const response = await publicInstance.post('/auth/login', { user, password })
+      console.log(response.data)
+      sessionStorage.setItem('token', response.data.token)
+      // persistir o token da session storage
+      setAuthed(true)
+      // devolver o token
+      return response.data.token
+    } catch (error) {
+      console.log(error.response.data.message)
+    }
   }
 
   const logout = () => {
@@ -28,7 +25,6 @@ export const useAuth = () => {
 
   return {
     authed,
-    mainRole,
     login,
     logout,
   }
