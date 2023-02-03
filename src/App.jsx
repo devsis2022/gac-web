@@ -1,12 +1,14 @@
+import { AuthProvider } from './context/authContext'
 import { AppRoutes } from './routes'
 import './style.css'
 
 const App = () => {
   return (
-    <div>
+    <AuthProvider>
       <AppRoutes />
-    </div>
+    </AuthProvider>
   )
 }
 
 export default App
+  
