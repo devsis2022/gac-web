@@ -1,14 +1,12 @@
-import { AppRoutes } from './routes';
-
-
-
+import { AppRoutes } from './routes'
 import './style.css'
+
 const App = () => {
   return (
     <div>
-      <AppRoutes/>
+      <AppRoutes />
     </div>
   )
 }
 
-export default App;
+export default App
