@@ -9,9 +9,8 @@ export const useAuth = () => {
       const response = await publicInstance.post('/auth/login', { user, password })
       console.log(response.data)
       sessionStorage.setItem('token', response.data.token)
-      // persistir o token da session storage
       setAuthed(true)
-      // devolver o token
+      
       return response.data.token
     } catch (error) {
       console.log(error.response.data.message)
@@ -19,7 +18,7 @@ export const useAuth = () => {
   }
 
   const logout = () => {
-    // remover token da session storage
+    sessionStorage.removeItem('token')
     setAuthed(false)
   }
 
