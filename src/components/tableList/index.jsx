@@ -1,4 +1,5 @@
 import {TableList} from "./styled";
+import { Accepted } from "../alerts/accepted";
 
 export const DefaultTableList = () => {
 
@@ -13,7 +14,7 @@ export const DefaultTableList = () => {
         {
             primeiro:"2primeiro valor",
             segundo: "2segundo valor",  
-            terceiro:"2terceiro valor"
+            terceiro:<Accepted>Aceito</Accepted>
         }
     ]
 
@@ -21,28 +22,32 @@ export const DefaultTableList = () => {
     //
 
     let tableHeader = (
-    <tr>
-        {Object.keys(list[0]).map((header, index) => {
-            return (
-                <th style={{width:String(alignment[index])+"%"}}>
-                    {header}
-                </th>
+    <thead>
+        <tr>
+            {Object.keys(list[0]).map((header, index) => {
+                return (
+                    <th style={{width:String(alignment[index])+"%"}}>
+                        {header}
+                    </th>
+                )}
             )}
-        )}
-    </tr>
+        </tr>
+    </thead>
     )
 
     let tableBody = list.map((element) => {
         return (
-            <tr>
-                {Object.keys(element).map((element_key, index) => {
-                    return (
-                        <td style={{width:String(alignment[index])+"%"}}>
-                            {element[element_key]}
-                        </td>
+            <tbody>
+                <tr>
+                    {Object.keys(element).map((element_key, index) => {
+                        return (
+                            <td style={{width:String(alignment[index])+"%"}}>
+                                {element[element_key]}
+                            </td>
+                        )}
                     )}
-                )}
-            </tr>
+                </tr>
+            </tbody>
         )
     })
     
