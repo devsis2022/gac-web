@@ -51,10 +51,10 @@ export const StudentModal = () => {
                 <div>
                     <DFlex>
                     <Input type='text' name='titulo' placeholder='titulo' onChange={handleChange}/>
-                    <select>
-                        <option name='teste1' value='valor1'>valor1</option>
-                        <option name='teste1' value='valor2'>valor2</option>
-                        <option name='teste1' value='valor3'>valor3</option>
+                    <select name='tipo' onChange={handleChange}>
+                        <option value='valor1'>valor1</option>
+                        <option value='valor2'>valor2</option>
+                        <option value='valor3'>valor3</option>
                     </select>
                     <Input type='file' name='arquivo' onChange={handleChange}/>
                     <Primary label='Enviar'  onClick={Click}/>
