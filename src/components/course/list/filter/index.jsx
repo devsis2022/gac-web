@@ -1,4 +1,4 @@
-import { CourseFilter } from "./styled"
+import { CourseFilterStyled } from "./styled"
 
 //mudar nome
 export const CourseFilterComponent = () => {
@@ -7,7 +7,7 @@ export const CourseFilterComponent = () => {
     const title = "titulo recebido"
 
     return(
-        <CourseFilter>
+        <CourseFilterStyled>
             <div className="title">
                 <h3>{title}</h3>
             </div>
@@ -17,6 +17,6 @@ export const CourseFilterComponent = () => {
             <button>
                 <i class="fa-solid fa-filter"></i> 
             </button>
-        </CourseFilter>
+        </CourseFilterStyled>
     )
 }

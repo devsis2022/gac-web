@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
-export const CourseFilter = styled.div`
+export const CourseFilterStyled = styled.div`
     height: 37px;
     
-    // to do
-    width: 98%;
-    margin-left: 10px;
+    width: 100%;
 
     display: flex;
     justify-content: space-between;
@@ -22,6 +20,8 @@ export const CourseFilter = styled.div`
         
         border-radius: 3px;
         font-size: 15px;
+
+        background-color: white;
     }
 
     .title h3{

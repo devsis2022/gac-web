@@ -1,11 +1,11 @@
-import { CourseFilterComponent } from "../../components/filter/index"
+import { CourseListComponent } from "../../components/course/list/index"
 
 export const GestorHome = () => {
   return (
     <div>
       <h1>gestorHome</h1>
       <div>
-        <CourseFilterComponent></CourseFilterComponent>        
+        <CourseListComponent></CourseListComponent>        
       </div>
     </div>
   )
