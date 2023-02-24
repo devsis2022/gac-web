@@ -1,27 +1,9 @@
 import { CourseListStyled } from "./styled"
 
-//mudar nome
-export const CourseList = () => {
-
-    //dados falsos
-    const courses = [
-        {
-            name:"Nome primeiro curso"
-        },
-        {
-            name:"Nome segundo curso"
-        },
-        {
-            name:"Nome terceiro curso"
-        },
-        {
-            name:"Nome quarto curso"
-        },
-    ];
-
+export const CourseList = ({listOfCourses}) => {
     return(
         <CourseListStyled>
-            {courses.map((course)=>{
+            {listOfCourses.map((course)=>{
                 return(
                     <div className="course">
                         <p>{course.name}</p>

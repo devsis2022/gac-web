@@ -1,17 +1,13 @@
 import { CourseFilterStyled } from "./styled"
 
-//mudar nome
-export const CourseFilterComponent = () => {
-
-    //dados falsos
-    const title = "titulo recebido"
-
+export const CourseFilterComponent = ({openModalCreateCourse, title }) => {
+    
     return(
         <CourseFilterStyled>
             <div className="title">
                 <h3>{title}</h3>
             </div>
-            <button>
+            <button onClick={openModalCreateCourse}>
                 <i class="fa-solid fa-plus"></i> 
             </button>
             <button>
