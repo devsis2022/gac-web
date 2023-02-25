@@ -1,12 +1,14 @@
 import React,{useState} from "react"
 import { Primary } from "../buttons/Primary"
 import Modal from "react-modal"
+import { Select } from "../select/select"
 import { publicInstance } from "../../service/axios"
 import { Input } from "../input"
 import { DFlex } from "../form/styled"
+import { Waiting } from "../alerts/waiting"
 
 Modal.setAppElement('#root')
-export const StudentModal = () => {
+export const StudentModal = ({activity, setActivity,list, options}) => {
     const customStyles = {
         content: {
           top: '50%',
@@ -17,7 +19,6 @@ export const StudentModal = () => {
           transform: 'translate(-50%, -50%)',
         },
       };
-    const [activity, setActivity] = useState({})
     const [modalOpen, setModalOpen] = useState(false)
 
     const handleChange = (e) =>{
@@ -34,9 +35,20 @@ export const StudentModal = () => {
     const fecharModal = ()=>{
         setModalOpen(false)
     }
+
+    const sendActivity = () =>{
+        list.push({
+          ...activity,
+          status: <Waiting>Em Aguardo</Waiting>
+        })
+      }
+    
     const Click = ()=>{
+        sendActivity()
+        console.log('lista: '+list)
         console.log(activity)
         fecharModal()
+        window.location.reload()
     }
 
     return(
@@ -50,12 +62,9 @@ export const StudentModal = () => {
             >
                 <div>
                     <DFlex>
-                    <Input type='text' name='titulo' placeholder='titulo' onChange={handleChange}/>
-                    <select name='tipo' onChange={handleChange}>
-                        <option value='valor1'>valor1</option>
-                        <option value='valor2'>valor2</option>
-                        <option value='valor3'>valor3</option>
-                    </select>
+                    <Input type='text' name='titulo' placeholder='Titulo' onChange={handleChange}/>
+                    <Select name={'tipo'} onChange={handleChange} options={options}/>
+                    <Input type='number' name='tempo' placeholder='Duração(em minutos)'/>
                     <Input type='file' name='arquivo' onChange={handleChange}/>
                     <Primary label='Enviar'  onClick={Click}/>
                     </DFlex>
