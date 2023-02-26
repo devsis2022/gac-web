@@ -3,6 +3,36 @@ import styled from 'styled-components'
 export const FormComponent = styled.div`
     margin:0;
 `
+
+export const DFlexRow = styled.div`
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e4ecec;
+    padding: 0.5vw;
+    a{
+        padding-top: 5%;
+    }
+    h3{
+        font-size: 18px;
+        margin-right:36px;
+        white-space: nowrap;
+    }
+`
+
+export const DFlexColumn = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #e4ecec;
+    a{
+        padding-top: 5%;
+    }
+`
+
 export const DFlex = styled.div`
     display: flex;
     flex-direction:column;
