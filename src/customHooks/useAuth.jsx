@@ -7,10 +7,11 @@ export const useAuth = () => {
   const login = async (user, password) => {
     try {
       const response = await publicInstance.post('/auth/login', { user, password })
-      console.log(response.data)
+
       sessionStorage.setItem('token', response.data.token)
+
       setAuthed(true)
-      
+
       return response.data.token
     } catch (error) {
       console.log(error.response.data.message)

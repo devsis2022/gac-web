@@ -1,78 +1,129 @@
-import { Primary } from '../components/buttons/Primary'
-import { FormLogin, FJustify, FCenter, Dados, Welcome } from '../components/form/styled'
-import { useState, useCallback, useEffect } from 'react'
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
-import { Secondary } from '../components/buttons/Secondary'
-import { useNavigate } from 'react-router-dom'
+import React, { useCallback, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { toast } from 'react-toastify';
+import { Formik } from 'formik';
+import { z } from 'zod';
+import { toFormikValidationSchema } from 'zod-formik-adapter';
+import { Avatar, FormControl, InputLabel, Input, Button, Typography, FormHelperText } from '@mui/material'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Center, ShadowedContainer, FullSize, Container, FColumnGap, FRow, ContainerQueryHide } from '../components/form/styles'
 import { AuthConsumer } from '../context/authContext'
-import { Input } from '../components/input'
+
+const avatarStyle = {
+  backgroundColor: '#00a9d4'
+}
+
+const presentationContainerStyle = {
+  flex: 3,
+  backgroundColor: '#00a9d4',
+  padding: '48px'
+}
+
+const formContainerStyle = {
+  flex: 2
+}
+
+const schema = z.object({
+  email: z.string({ required_error: 'Campo obrigatório' }).email('Email inválido'),
+  password: z.string({ required_error: 'Campo obrigatório' }).min(6, 'A senha deve ter no mínimo 6 caracteres')
+})
 
 export const Login = () => {
   const { login, authed } = AuthConsumer()
-  const [user, setUser] = useState('')
-  const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  const handleUser = ({ target }) => {
-    setUser(target.value)
-  }
-  const handlePassword = ({ target }) => {
-    setPassword(target.value)
-  }
-  const handleLogin = async () => {
-    if (!user || !password) {
-      return
-    }
-    await login(user, password)
-  }
+  const onSubmit = async (form) => {
+    const { email, password } = form;
 
-  const goToRegister = () => {
-    return navigate('/register')
+    if (!await login(email, password)) {
+      toast.error('Erro ao realizar o login')
+    }
+
+    return
   }
 
   const goToHome = useCallback(() => {
     const mainRole = localStorage.getItem('mainRole')
-    if (!mainRole) return navigate('/role-choice')
-    return navigate(`/${mainRole}`)
+
+    if (mainRole) {
+      return navigate(`/${mainRole}`)
+    }
+
+    return navigate('/role-choice')
   }, [navigate])
 
   useEffect(() => {
-    if (!authed) return
-    goToHome()
+    authed && goToHome()
   }, [authed, goToHome])
 
   return (
-    <FormLogin>
-      <FJustify>
-        <Welcome>
-          <FCenter>
-            <h1>Welcome to Gac!</h1>
-          </FCenter>
-        </Welcome>
+      <FullSize>
+        <FRow>
+          <ContainerQueryHide maxWidth="1000px" style={presentationContainerStyle}>
+            <Center>
+              <Container>
+                <Typography typography='h3' fontWeight='bold' color='whitesmoke'>Bem vindo ao GAC</Typography>
+                <Typography typography='h6' color='whitesmoke'>Gerenciamento de Atividades Complementares</Typography>
+              </Container>
+            </Center>
+          </ContainerQueryHide>
 
-        <Dados>
-          <FCenter>
-            <Input
-              name="user"
-              type="text"
-              placeholder="Digite seu email ou usuário"
-              onChange={handleUser}
-              faIcon={faUser}
-            />
+          <Container style={formContainerStyle}>
+            <Center>
+              <ShadowedContainer style={{ width: '264px' }}>
+                <FColumnGap>
+                  <Container>
+                    <Center>
+                      <Avatar style={avatarStyle}>
+                        <LockOutlinedIcon />
+                      </Avatar>
+                    </Center>
+                  </Container>
 
-            <Input
-              name="password"
-              id="password"
-              type="password"
-              placeholder="Digite sua senha"
-              onChange={handlePassword}
-              faIcon={faLock}
-            />
-            <Primary label={'Enviar'} onClick={handleLogin} />
-            <Secondary label={'Cadastrar'} onClick={goToRegister} />
-          </FCenter>
-        </Dados>
-      </FJustify>
-    </FormLogin>
+                  <Container>
+                    <Center>
+                      <Typography typography='h5' color='GrayText' fontWeight='bold'>Login GAC</Typography>
+                    </Center>
+                  </Container>
+                </FColumnGap>
+
+                <Container>
+                  <Formik initialValues={{ email: '', password: '' }} validationSchema={toFormikValidationSchema(schema)} onSubmit={onSubmit}>
+                    {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                      <form onSubmit={handleSubmit}>
+                        <FColumnGap>
+                          <FColumnGap>
+                            <FormControl>
+                              <InputLabel htmlFor='email-input' error={!!errors.email}>Email</InputLabel>
+                              <Input id='email-input' type='email' name='email' placeholder='Digite seu email' label='Email' value={values.email} onChange={handleChange} onBlur={handleBlur} size='small' error={!!(touched && errors.email)} />
+                              <FormHelperText error>{errors.email}</FormHelperText>
+                            </FormControl>
+
+                            <FormControl>
+                              <InputLabel htmlFor='password-input' error={!!errors.email}>Senha</InputLabel>
+                              <Input id='password-input' type="password" name="password" placeholder='Digite sua senha' label="Senha" value={values.password} onChange={handleChange} onBlur={handleBlur} size='small' error={!!errors.password} />
+                              <FormHelperText error>{errors.password}</FormHelperText>
+                            </FormControl>
+                          </FColumnGap>
+
+                          <Button type='submit' disabled={isSubmitting} variant='contained' fullWidth>Entrar</Button>
+                          <Container>
+                            <Link to="/register" style={{ textDecoration: 'none' }}>
+                              <Typography typography='h7'>Esqueci minha senha</Typography>
+                            </Link>
+                            <Link to="/register" style={{ textDecoration: 'none' }}>
+                              <Typography typography='h7'>Cadastrar-se</Typography>
+                            </Link>
+                          </Container>
+                        </FColumnGap>
+                      </form>
+                    )}
+                  </Formik>
+                </Container>
+              </ShadowedContainer>
+            </Center>
+          </Container>
+        </FRow>
+      </FullSize>
   )
 }

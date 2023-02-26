@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-export const FormComponent = styled.div`    
+
+export const FormComponent = styled.div`
     margin:0;
 `
 export const DFlex = styled.div`
@@ -22,11 +23,11 @@ export const FJustify = styled.div`
     input{
         margin: 4vw 1vw;
     }
-` 
+`
 
 export const FCenter = styled.div`
     height: 100vh;
-    
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,7 +67,7 @@ export const Dados = styled.div`
         width: 80%;
 
         margin-bottom: 40px;
-        position: relative;    
+        position: relative;
     }
 
     label input{
@@ -98,7 +99,7 @@ export const Dados = styled.div`
         box-shadow: 3px 3px 6px #888888;
         transition: .3s;
     }
-    
+
     label .fa{
         position: absolute;
         left: 3.4%;
@@ -127,7 +128,7 @@ export const Dados = styled.div`
         font-size: 2.2vh;
         font-weight: 500;
     }
-    
+
     @media only screen and (max-width: 900px) {
         width: 100vw;
     }
