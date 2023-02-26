@@ -14,4 +14,5 @@ export const authPagesStyles = {
     textDecoration: "none",
     color: "#1976d2",
   },
+  descriptionStyle: { fontSize: '12px' }
 };

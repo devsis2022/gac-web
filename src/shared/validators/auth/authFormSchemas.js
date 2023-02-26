@@ -35,3 +35,7 @@ export const registerFormInitialValues = {
     confirmPassword: "",
   },
 };
+
+export const requestRecoveryFormSchema = z.object({
+  email: z.string(requiredMessage).email("Email inválido")
+});
