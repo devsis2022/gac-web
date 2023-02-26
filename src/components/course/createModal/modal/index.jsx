@@ -16,7 +16,7 @@ export const CourseCreationModal = ({modalCreationIsOpen, closeModalCreateCourse
     return(
         <Modal isOpen={modalCreationIsOpen} onRequestClose={closeModalCreateCourse} style={customStyles}>
             <i class="fa-solid fa-close" onClick={closeModalCreateCourse}></i> 
-            <CouseCreationContent/>
+            <CouseCreationContent closeModalCreateCourse = {closeModalCreateCourse}/>
         </Modal>
     )
 }

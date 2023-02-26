@@ -7,7 +7,7 @@ import debounce     from 'lodash.debounce'
 
 import { CourseCreationStyled } from "./styled"
 
-export const CouseCreationContent = () => {
+export const CouseCreationContent = ({closeModalCreateCourse}) => {
 
     const [name,        setName]         = useState("");
     const [description, setDescription]  = useState("");
@@ -40,6 +40,7 @@ export const CouseCreationContent = () => {
 
     const saveCourse = async () => {
         alert('saving course')
+        closeModalCreateCourse();
     }
 
     return(

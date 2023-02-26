@@ -52,6 +52,7 @@ export const CourseListComponent = () => {
             <CourseListStyled>
                 <CourseFilterComponent                      openModalCreateCourse ={openModalCreateCourse}></CourseFilterComponent>
                 <CourseList listOfCourses={listOfCourses}   openModalEditCourse   ={ openModalEditCourse }  setCurrentCourse = {setCurrentCourse}></CourseList>
+                
             </CourseListStyled>
         </div>
     )

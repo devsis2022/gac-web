@@ -6,16 +6,13 @@ import debounce     from 'lodash.debounce'
 
 import { CourseEditStyled } from "./styled"
 
-export const CouseEditContent = ({currentCourse}) => {
+export const CouseEditContent = ({currentCourse, closeModalEditCourse}) => {
 
     const [name,        setName]         = useState(currentCourse.name);
     const [description, setDescription]  = useState(currentCourse.description);
     const [coordinator, setCoordinator]  = useState(currentCourse.coordinator);
 
-    const [coordinatorList,setCoordinatorList] = useState([
-        {id:1,
-        label:"gestor 1"}
-    ])
+    const [coordinatorList,setCoordinatorList] = useState([])
 
     const handleChange = (event) => {
         switch (event.target.id){
@@ -29,7 +26,11 @@ export const CouseEditContent = ({currentCourse}) => {
     }, 500)
 
     const searchCoordinator = (char) => {
-        console.log(`[LOG] searching coordinator "${char}"`);
+        alert(`searching coordinator "${char}"`);
+        setCoordinatorList([
+            {id:1,
+            label:"gestor 1"}
+        ])
     }
 
     const selectCoordinator = (event) => {
@@ -38,6 +39,7 @@ export const CouseEditContent = ({currentCourse}) => {
 
     const updateCourse = async () => {
         alert('saving course')
+        closeModalEditCourse();
     }
 
     return(
