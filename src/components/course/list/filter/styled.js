@@ -10,7 +10,7 @@ export const CourseFilterStyled = styled.div`
 
     div{
         border: 2px solid #b2b2f5;
-        width: calc(100% - 37px - 37px);
+        width: calc(100% - 37px);
     }
 
     .title{

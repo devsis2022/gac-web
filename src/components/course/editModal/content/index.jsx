@@ -5,9 +5,9 @@ import Button       from '@mui/material/Button';
 import Autocomplete from '@mui/material/Autocomplete';
 import debounce     from 'lodash.debounce' 
 
-import { CourseCreationStyled } from "./styled"
+import { CourseEditStyled } from "./styled"
 
-export const CouseCreationContent = () => {
+export const CouseEditContent = ({currentCourse}) => {
 
     const [name,        setName]         = useState("");
     const [description, setDescription]  = useState("");
@@ -43,8 +43,9 @@ export const CouseCreationContent = () => {
     }
 
     return(
-        <CourseCreationStyled>
-            <h4>Criação de curso</h4>
+        <CourseEditStyled>
+            <h4>Edição de curso</h4>
+            {currentCourse}
             <div className="form">
                 
                 <TextField  id="name"          onChange={handleChange}     label="Nome"        variant="outlined" />
@@ -63,6 +64,6 @@ export const CouseCreationContent = () => {
 
                 <Button onClick={saveCourse} variant="contained">Criar</Button>
             </div>
-        </CourseCreationStyled>
+        </CourseEditStyled>
     )
 }
