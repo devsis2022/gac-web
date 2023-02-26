@@ -23,8 +23,13 @@ const formContainerStyle = {
   flex: 2
 }
 
+const linkStyle = {
+  textDecoration: 'none',
+  color: '#1976d2'
+}
+
 const schema = z.object({
-  email: z.string({ required_error: 'Campo obrigatório' }).email('Email inválido'),
+  user: z.string({ required_error: 'Campo obrigatório' }),
   password: z.string({ required_error: 'Campo obrigatório' }).min(6, 'A senha deve ter no mínimo 6 caracteres')
 })
 
@@ -33,9 +38,9 @@ export const Login = () => {
   const navigate = useNavigate()
 
   const onSubmit = async (form) => {
-    const { email, password } = form;
+    const { user, password } = form;
 
-    if (!await login(email, password)) {
+    if (!await login(user, password)) {
       toast.error('Erro ao realizar o login')
     }
 
@@ -88,30 +93,30 @@ export const Login = () => {
                 </FColumnGap>
 
                 <Container>
-                  <Formik initialValues={{ email: '', password: '' }} validationSchema={toFormikValidationSchema(schema)} onSubmit={onSubmit}>
+                  <Formik initialValues={{ user: '', password: '' }} validationSchema={toFormikValidationSchema(schema)} onSubmit={onSubmit}>
                     {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                       <form onSubmit={handleSubmit}>
                         <FColumnGap>
                           <FColumnGap>
                             <FormControl>
-                              <InputLabel htmlFor='email-input' error={!!errors.email}>Email</InputLabel>
-                              <Input id='email-input' type='email' name='email' placeholder='Digite seu email' label='Email' value={values.email} onChange={handleChange} onBlur={handleBlur} size='small' error={!!(touched && errors.email)} />
-                              <FormHelperText error>{errors.email}</FormHelperText>
+                              <InputLabel htmlFor='user-input' error={!!errors.user}>Usuário/Email</InputLabel>
+                              <Input id='user-input' type='text' name='user' placeholder='Digite seu usuário ou email' value={values.user} onChange={handleChange} onBlur={handleBlur} size='small' error={!!(touched && errors.user)} />
+                              <FormHelperText error>{errors.user}</FormHelperText>
                             </FormControl>
 
                             <FormControl>
-                              <InputLabel htmlFor='password-input' error={!!errors.email}>Senha</InputLabel>
-                              <Input id='password-input' type="password" name="password" placeholder='Digite sua senha' label="Senha" value={values.password} onChange={handleChange} onBlur={handleBlur} size='small' error={!!errors.password} />
+                              <InputLabel htmlFor='password-input' error={!!errors.password}>Senha</InputLabel>
+                              <Input id='password-input' type="password" name="password" placeholder='Digite sua senha' value={values.password} onChange={handleChange} onBlur={handleBlur} size='small' error={!!(touched && errors.password)} />
                               <FormHelperText error>{errors.password}</FormHelperText>
                             </FormControl>
                           </FColumnGap>
 
                           <Button type='submit' disabled={isSubmitting} variant='contained' fullWidth>Entrar</Button>
                           <Container>
-                            <Link to="/register" style={{ textDecoration: 'none' }}>
+                            <Link to="/recovery" style={linkStyle}>
                               <Typography typography='h7'>Esqueci minha senha</Typography>
                             </Link>
-                            <Link to="/register" style={{ textDecoration: 'none' }}>
+                            <Link to="/register" style={linkStyle}>
                               <Typography typography='h7'>Cadastrar-se</Typography>
                             </Link>
                           </Container>
