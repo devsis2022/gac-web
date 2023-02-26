@@ -11,17 +11,25 @@ export const CourseListComponent = () => {
     //<TODO>
     const [listOfCourses, setListOfCourses] = useState([
         {
-            name:"Nome primeiro curso"
+            name:"Nome primeiro curso",
+            description:"Este é o primeiro curso",
+            coordinator:"Coord. 1"
         },
         {
-            name:"Nome segundo curso"
+            name:"Nome segundo curso",
+            description:"Este é o primeiro curso",
+            coordinator:"Coord. 1"
         },
         {
-            name:"Nome terceiro curso"
+            name:"Nome terceiro curso",
+            description:"Este é o primeiro curso",
+            coordinator:"Coord. 1"
         },
         {
-            name:"Nome quarto curso"
-        },
+            name:"Nome quarto curso",
+            description:"Este é o primeiro curso",
+            coordinator:"Coord. 1"
+        }
     ])
     //</TODO>
 
@@ -31,15 +39,9 @@ export const CourseListComponent = () => {
     const closeModalCreateCourse = () => { setModalCreationIsOpen(false) }
 
     const [modalEditIsOpen, setModalEditIsOpen] = useState(false)
-    const [currentCourse,   setCurrentCourse]   = useState({})
+    const [currentCourse,   setCurrentCourse]   = useState({  "name":"Nome primeiro curso"  })
 
-    const openModalEditCourse =  (event) => { 
-        // setCurrentCourse(event.target.course_value)
-        console.log(event.target.course_value)
-        // console.log(currentCourse)
-
-        setModalEditIsOpen(true) 
-    }
+    const openModalEditCourse =  () => { setModalEditIsOpen(true) }
     const closeModalEditCourse = () => { setModalEditIsOpen(false) }
 
     return(
@@ -48,8 +50,8 @@ export const CourseListComponent = () => {
             <CourseEditModal        modalEditIsOpen={modalEditIsOpen}           closeModalEditCourse={closeModalEditCourse}     currentCourse={currentCourse}/>
 
             <CourseListStyled>
-                <CourseFilterComponent                      openModalCreateCourse={openModalCreateCourse}></CourseFilterComponent>
-                <CourseList listOfCourses={listOfCourses}   openModalEditCourse={openModalEditCourse}></CourseList>
+                <CourseFilterComponent                      openModalCreateCourse ={openModalCreateCourse}></CourseFilterComponent>
+                <CourseList listOfCourses={listOfCourses}   openModalEditCourse   ={ openModalEditCourse }  setCurrentCourse = {setCurrentCourse}></CourseList>
             </CourseListStyled>
         </div>
     )

@@ -10,7 +10,6 @@ export const CourseCreationModal = ({modalCreationIsOpen, closeModalCreateCourse
           left: '30%',
           height:"80%",
           width:"40%",
-          transition: ".5s"
         },
     };
 

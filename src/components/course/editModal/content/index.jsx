@@ -1,6 +1,5 @@
 import { useState } from "react"
 import TextField    from '@mui/material/TextField';
-import Textarea     from '@mui/base/TextareaAutosize';
 import Button       from '@mui/material/Button';
 import Autocomplete from '@mui/material/Autocomplete';
 import debounce     from 'lodash.debounce' 
@@ -9,10 +8,9 @@ import { CourseEditStyled } from "./styled"
 
 export const CouseEditContent = ({currentCourse}) => {
 
-    const [name,        setName]         = useState("");
-    const [description, setDescription]  = useState("");
-    const [coordinator, setCoordinator]  = useState("");
-    // const [institution, setiInstitution] = useState("");
+    const [name,        setName]         = useState(currentCourse.name);
+    const [description, setDescription]  = useState(currentCourse.description);
+    const [coordinator, setCoordinator]  = useState(currentCourse.coordinator);
 
     const [coordinatorList,setCoordinatorList] = useState([
         {id:1,
@@ -38,31 +36,24 @@ export const CouseEditContent = ({currentCourse}) => {
         setCoordinator(coordinatorList[event.target.value]);
     }
 
-    const saveCourse = async () => {
+    const updateCourse = async () => {
         alert('saving course')
     }
 
     return(
         <CourseEditStyled>
             <h4>Edição de curso</h4>
-            {currentCourse}
             <div className="form">
                 
-                <TextField  id="name"          onChange={handleChange}     label="Nome"        variant="outlined" />
+                <TextField  id="name"   value={currentCourse.name} onChange={handleChange}   label="Nome"   variant="outlined" />
 
-                <Autocomplete  id="coordinator"     disablePortal                   sx={{ width: 300 }}
-                    onInput={coordinatorFilter}     onChange={selectCoordinator}    options={coordinatorList}
-                    renderInput={(params) => <TextField {...params} label="Cordenador" />}
-                />
+                <Autocomplete  id="coordinator"     value={currentCourse.coordinator}   disablePortal     sx={{ width: 300 }}
+                    onInput={coordinatorFilter}     onChange={selectCoordinator}        options={coordinatorList}
+                    renderInput={(params) => <TextField {...params} label="Cordenador" />}/>
 
-                <textarea   id="description"   onChange={handleChange}     placeholder="Descrição"   variant="outlined" />
+                <textarea   id="description"   value={currentCourse.description}    onChange={handleChange} placeholder="Descrição"   variant="outlined" />
 
-                {/* <Autocomplete  id="coordinator"     disablePortal                   sx={{ width: 300 }}
-                    onInput={searchInstitution}     onChange={selectCoordinator}    options={coordinatorList}
-                    renderInput={(params) => <TextField {...params} label="Cordenador" />}
-                /> */}
-
-                <Button onClick={saveCourse} variant="contained">Criar</Button>
+                <Button onClick={updateCourse} variant="contained">Salvar</Button>
             </div>
         </CourseEditStyled>
     )
