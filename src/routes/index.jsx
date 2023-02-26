@@ -7,6 +7,7 @@ import { GestorHome } from '../pages/home/gestorHome'
 import { CoordinatorHome } from '../pages/home/coordinatorHome'
 import { RequireAuth } from '../components/auth'
 import { MainRoleChoice } from '../pages/home/mainRoleChoice'
+import { Recovery } from '../pages/recovery'
 
 export const AppRoutes = () => {
   return (
@@ -15,6 +16,7 @@ export const AppRoutes = () => {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/recovery" element={<Recovery />} />
         <Route path="/role-choice" element={<MainRoleChoice />} />
         <Route
           path="/admin"
