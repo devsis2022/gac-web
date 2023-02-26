@@ -1,80 +1,111 @@
 import { useState } from 'react'
-import { Primary } from '../components/buttons/Primary'
-import { Input } from '../components/input'
 import { publicInstance } from '../service/axios'
-import { FormLogin, FJustify, FCenter, Dados, Welcome } from '../components/form/styled'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { Center, Container, ContainerQueryHide, FColumnGap, FRow, FullSize, ShadowedContainer } from '../components/form/styles'
+import { Avatar, Button, TextField, Typography } from '@mui/material'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import { Formik } from 'formik'
+import { toFormikValidationSchema } from 'zod-formik-adapter'
+import { authPagesStyles } from '../shared/styles/authPagesStyles'
+import { registerFormInitialValues, registerFormSchema } from '../shared/validators/auth/authFormSchemas'
+import { toast } from 'react-toastify'
+import { AxiosError } from 'axios'
+import { parseErrorMessage } from '../utils/requestErrorMessage.util'
 
 export const Register = () => {
-  const [user, setUser] = useState({
-    name: '',
-    username: '',
-    email: '',
-    cpf: '',
-    first: '',
-    verify: '',
-  })
   const navigate = useNavigate()
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    console.log(name, value)
-    setUser({
-      ...user,
-      [name]: value,
-    })
-  }
-  const handleRegister = async () => {
-    if (user.first !== user.verify) {
-      // TODO: sinalizar visualmente para o usuário que os campos estão diferentes
-      console.log('senhas diferentes')
-      return
+  const onSubmit = async (form) => {
+    const body = {
+      ...form,
+      ...form.passwords,
+      username: form.username || null
     }
-    // TODO: validação de todos os campos (pode ser feita também após a perda do foco. Pesquisem por onBlur)
+
+    delete body.passwords
+    delete body.confirmPassword
+
     try {
-      const response = await publicInstance.post('/auth/signin', {
-        name: user.name,
-        username: user.username,
-        cpf: user.cpf,
-        password: user.first,
-        email: user.email,
-      })
-      console.log(response)
+      await publicInstance.post('/auth/signin', body)
+
+      toast.success('Cadastro realizado com sucesso')
       navigate('/login')
     } catch (error) {
-      // TODO: apontar o erro recebido da API para o usuário. Pode ser um toast ou... um toast
-      console.log(error.response)
+
+      if (error instanceof AxiosError) {
+        const { message } = error.response.data
+
+        toast.error(parseErrorMessage(message))
+
+        return;
+      }
+
+      toast.error('Erro ao realizar o cadastro')
     }
+
+    return true
   }
 
   return (
-    <FormLogin>
-      <FJustify>
-        <Welcome>
-          <FCenter>
-            <h1>Welcome to Gac!</h1>
-            <h2>Realize sua incrição</h2>
-          </FCenter>
-        </Welcome>
+    <FullSize>
+      <FRow>
+        <ContainerQueryHide maxWidth="1000px" style={authPagesStyles.presentationContainerStyle}>
+          <Center>
+            <Container>
+              <Typography typography='h3' fontWeight='bold' color='whitesmoke'>Bem vindo ao GAC</Typography>
+              <Typography typography='h6' color='whitesmoke'>Gerenciamento de Atividades Complementares</Typography>
+            </Container>
+          </Center>
+        </ContainerQueryHide>
 
-        <Dados>
-          <FCenter>
-            <Input placeholder={'Nome:'} name={'name'} type={'text'} faIcon={''} onChange={handleChange} />
-            <Input placeholder={'Nome usuário:'} name={'username'} type={'text'} faIcon={''} onChange={handleChange} />
-            <Input placeholder={'Email:'} name={'email'} type={'email'} faIcon={''} onChange={handleChange} />
-            <Input placeholder={'CPF:'} name={'cpf'} type={'text'} faIcon={''} onChange={handleChange} />
-            <Input placeholder={'Senha:'} name={'first'} type={'password'} faIcon={''} onChange={handleChange} />
-            <Input
-              placeholder={'Repetir Senha:'}
-              name={'verify'}
-              type={'password'}
-              faIcon={''}
-              onChange={handleChange}
-            />
-            <Primary label={'Enviar'} onClick={handleRegister} />
-          </FCenter>
-        </Dados>
-      </FJustify>
-    </FormLogin>
+        <Container style={authPagesStyles.formContainerStyle}>
+          <Center>
+            <ShadowedContainer style={{ width: '264px' }}>
+              <FColumnGap>
+                <Container>
+                  <Center>
+                    <Avatar style={authPagesStyles.avatarStyle}>
+                      <LockOutlinedIcon />
+                    </Avatar>
+                  </Center>
+                </Container>
+
+                <Container>
+                  <Center>
+                    <Typography typography='h5' color='GrayText' fontWeight='bold'>Cadastro</Typography>
+                  </Center>
+                </Container>
+              </FColumnGap>
+
+              <Container>
+                <Formik initialValues={registerFormInitialValues} validationSchema={toFormikValidationSchema(registerFormSchema)} onSubmit={onSubmit}>
+                  {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                    <form onSubmit={handleSubmit}>
+                      <FColumnGap>
+                        <FColumnGap>
+                          <TextField label='Nome' type='text' name='name' placeholder='Digite seu nome' value={values.name} onChange={handleChange} onBlur={handleBlur} size='small' variant='standard' error={!!(touched.name && errors.name)} helperText={touched.name && errors.name}/>
+                          <TextField label='Nome de usuário' type='text' name='username' placeholder='Digite seu nome de usuário' value={values.username} onChange={handleChange} onBlur={handleBlur} size='small' variant='standard' error={!!(touched.username && errors.username)} helperText={touched.username && errors.username}/>
+                          <TextField label='Email' type='email' name='email' placeholder='Digite seu email' value={values.email} onChange={handleChange} onBlur={handleBlur} size='small' variant='standard' error={!!(touched.email && errors.email)} helperText={touched.email && errors.email}/>
+                          <TextField label='Cpf' type='text' name='cpf' placeholder='Digite seu cpf' value={values.cpf} onChange={handleChange} onBlur={handleBlur} size='small' variant='standard' error={!!(touched.cpf && errors.cpf)} helperText={touched.cpf && errors.cpf}/>
+                          <TextField label='Senha' type='password' name='passwords.password' placeholder='Digite sua senha' value={values.passwords.password} onChange={handleChange} onBlur={handleBlur} size='small' variant='standard' error={!!(touched.passwords?.password && errors.passwords?.password)} helperText={touched.passwords?.password && errors.passwords?.password}/>
+                          <TextField label='Confirmar senha' type='password' name='passwords.confirmPassword' placeholder='Repita sua senha' value={values.passwords.confirmPassword} onChange={handleChange} onBlur={handleBlur} size='small' variant='standard' error={!!(touched.passwords?.confirmPassword && errors.passwords?.confirmPassword)} helperText={touched.passwords?.confirmPassword && errors.passwords?.confirmPassword}/>
+                        </FColumnGap>
+
+                        <Button type='submit' disabled={isSubmitting} variant='contained' fullWidth>Cadastrar</Button>
+                        <Container>
+                          <Link to="/login" style={authPagesStyles.linkStyle}>
+                            <Typography typography='h7'>Já tenho cadastro</Typography>
+                          </Link>
+                        </Container>
+                      </FColumnGap>
+                    </form>
+                  )}
+                </Formik>
+              </Container>
+            </ShadowedContainer>
+          </Center>
+        </Container>
+      </FRow>
+    </FullSize>
   )
 }
