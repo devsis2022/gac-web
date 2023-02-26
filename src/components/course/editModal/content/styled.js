@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CourseCreationStyled = styled.div`
+export const CourseEditStyled = styled.div`
     
     display: flex;
     flex-direction: column;

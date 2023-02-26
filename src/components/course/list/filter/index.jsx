@@ -1,18 +1,18 @@
 import { CourseFilterStyled } from "./styled"
 
-export const CourseFilterComponent = ({openModalCreateCourse, title }) => {
+export const CourseFilterComponent = ({openModalCreateCourse}) => {
     
     return(
         <CourseFilterStyled>
             <div className="title">
-                <h3>{title}</h3>
+                <h3>Lista de Cursos</h3>
             </div>
             <button onClick={openModalCreateCourse}>
                 <i class="fa-solid fa-plus"></i> 
             </button>
-            <button>
+            {/* <button>
                 <i class="fa-solid fa-filter"></i> 
-            </button>
+            </button> */}
         </CourseFilterStyled>
     )
 }
