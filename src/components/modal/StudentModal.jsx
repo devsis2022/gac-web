@@ -73,7 +73,7 @@ export function StudentModal({activity, setActivity, list, label}) {
           </Typography>
           <hr/>
           <TextField name='tittle' label='Titulo'onChange={handleChange}/>
-          {/* <TextField name='description' label='Descrição' onChange={handleChange}/> */}
+          <TextField name='description' label='Descrição' onChange={handleChange}/>
           <TextField name='minutes' label='Tempo(Em minutos)' onChange={handleNumber}/>
           <InputLabel id='demo-simple-select-label'>Tipo de atividade</InputLabel>
           <Select
@@ -87,6 +87,7 @@ export function StudentModal({activity, setActivity, list, label}) {
             <MenuItem id='type' value={'Tipo 2'}>Tipo 2</MenuItem>
             <MenuItem id='type' value={'Tipo 3'}>Tipo 3</MenuItem>
           </Select>
+          <TextField name='receipt' type={'file'}onChange={handleChange}/>
           <Primary onClick={click} label={'Enviar Atividade'}/>
 
           </FColumnGap>
