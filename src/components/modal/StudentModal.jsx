@@ -1,75 +1,100 @@
-import React,{useState} from "react"
-import { Primary } from "../buttons/Primary"
-import Modal from "react-modal"
-import { Select } from "../select/select"
-import { publicInstance } from "../../service/axios"
-import { Input } from "../input"
-import { DFlex } from "../form/styled"
-import { Waiting } from "../alerts/waiting"
+import * as React from 'react'
+import { Primary } from '../buttons/Primary'
+import { Waiting } from '../alerts/alerts'
+import Box from '@mui/material/Box'
+import { TextField } from '@mui/material'
+import { Select } from '@mui/material'
+import { MenuItem } from '@mui/material'
+import { InputLabel } from '@mui/material'
+import { FColumnGap } from '../form/styles'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
 
-Modal.setAppElement('#root')
-export const StudentModal = ({activity, setActivity,list, options}) => {
-    const customStyles = {
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-        },
-      };
-    const [modalOpen, setModalOpen] = useState(false)
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
-    const handleChange = (e) =>{
-        const {name, value} = e.target
-        setActivity({
-            ...activity,
-            [name]: value
-        })
+export function StudentModal({activity, setActivity, list, label}) {
+  const [open, setOpen] = React.useState(false);
+  const [newActivity,setNewActivity] = React.useState({
+    type: ''
+  })
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleChange = (event) =>{
+    setNewActivity({
+        ...newActivity,
+        [event.target.name]: event.target.value
+    })
+  }
+  const handleFile = (event) =>{
+    setNewActivity({
+      ...newActivity,
+      [event.target.name]: event.target.files[0]
+  })
+  }
+  const handleNumber=(event)=>{
+    const regex = /^[0-9\b]+$/;
+    if (event.target.value === "" || regex.test(event.target.value)) {
+      setNewActivity({
+        ...newActivity,
+        [event.target.name]: event.target.value
+      })
+    }else{
+        alert('Apenas números')
     }
-    
-    const abrirModal = () => {
-        setModalOpen(true)
-    }
-    const fecharModal = ()=>{
-        setModalOpen(false)
-    }
+  }
+  const click = () =>{
+    console.log(newActivity)
+    setNewActivity({
+      ...newActivity,
+      status: <Waiting>Em Aguardo</Waiting>
+    })
+  }
 
-    const sendActivity = () =>{
-        list.push({
-          ...activity,
-          status: <Waiting>Em Aguardo</Waiting>
-        })
-      }
-    
-    const Click = ()=>{
-        sendActivity()
-        console.log('lista: '+list)
-        console.log(activity)
-        fecharModal()
-        window.location.reload()
-    }
-
-    return(
-        <div>
-            <Primary onClick={abrirModal} label={'Adicionar Atividade'}/>
-            <Modal 
-            isOpen={modalOpen}
-            onRequestClose={fecharModal}
-            style={customStyles}
-            contentLabel="Modal de exemplo"
-            >
-                <div>
-                    <DFlex>
-                    <Input type='text' name='titulo' placeholder='Titulo' onChange={handleChange}/>
-                    <Select name={'tipo'} onChange={handleChange} options={options}/>
-                    <Input type='number' name='tempo' placeholder='Duração(em minutos)'/>
-                    <Input type='file' name='arquivo' onChange={handleChange}/>
-                    <Primary label='Enviar'  onClick={Click}/>
-                    </DFlex>
-                </div>
-            </Modal>
-        </div>
-    )
+  return (
+    <div>
+      <Primary onClick={handleOpen} label={label}/>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>        
+          <FColumnGap>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Atividade
+          </Typography>
+          <hr/>
+          <TextField name='tittle' label='Titulo'onChange={handleChange}/>
+          <TextField name='description' label='Descrição' onChange={handleChange}/>
+          <TextField name='minutes' label='Tempo(Em minutos)' onChange={handleNumber}/>
+          <InputLabel id='demo-simple-select-label'>Tipo de atividade</InputLabel>
+          <Select
+            labelId='demo-simple-select-label'
+            label='Tipo de Atividade'
+            value= {newActivity.type}
+            name='type'
+            onChange={handleChange}
+          >
+            <MenuItem id='type' value={'Tipo 1'}>Tipo 1</MenuItem>
+            <MenuItem id='type' value={'Tipo 2'}>Tipo 2</MenuItem>
+            <MenuItem id='type' value={'Tipo 3'}>Tipo 3</MenuItem>
+          </Select>
+          <TextField name='receipt' type={'file'} onChange={handleFile}/>
+          <Primary onClick={click} label={'Enviar Atividade'}/>
+          </FColumnGap>
+        </Box>
+      </Modal>
+    </div>
+  );
 }

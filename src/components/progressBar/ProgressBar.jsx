@@ -23,9 +23,8 @@ LinearProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function LinearWithValueLabel() {
-  const [progress, setProgress] = React.useState(10);
-
+export default function LinearWithValueLabel(props) {
+  const [progress, setProgress] = React.useState(props.value);
   // React.useEffect(() => {
   //   const timer = setInterval(() => {
   //     setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));

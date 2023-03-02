@@ -1,10 +1,13 @@
 import { ProfileComponent } from "./styled"
-export const Profile = ()=>{
+import { publicInstance } from "../../service/axios"
+export const Profile = ({user})=>{
     return(
         <ProfileComponent>
             <img src="/logo192.png" alt="imagem" />
-            <div className="">
-                <h1>alo</h1>
+            <div>
+                <h1>Usuário:</h1>
+                <h1>Cadastrado como:</h1>
+                <h1>CPF:</h1>
             </div>
         </ProfileComponent>
     )

@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const Denied = styled.div`
+export const StyledDenied = styled.div`
     border: solid 0.1rem;
     border-radius: 30rem;
     border-color: red;
