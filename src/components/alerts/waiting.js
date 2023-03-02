@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const Waiting = styled.div`
+export const StyledWaiting = styled.div`
     border: solid 0.1rem;
     border-radius: 30rem;
     border-color: #d3d300;

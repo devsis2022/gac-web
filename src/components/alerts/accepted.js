@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const Accepted = styled.div`
+export const StyledAccepted = styled.div`
     border: solid 0.1rem;
     border-radius: 30rem;
     border-color: green;

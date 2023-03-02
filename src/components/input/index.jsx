@@ -1,11 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { StyledInput } from "./styled"
 
 export const Input = ({ type, name, placeholder, onChange, faIcon }) => {
   return (
     <label>
-      
-      
-      <input type={type} name={name} placeholder={placeholder} onChange={onChange} />
+      <StyledInput type={type} name={name} placeholder={placeholder} onChange={onChange} />
     </label>
   )
 }

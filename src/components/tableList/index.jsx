@@ -4,7 +4,7 @@ import { Accepted } from "../alerts/accepted";
 export const DefaultTableList = ({list}) => {
 
     //dados sinteticos
-    const alignment = [25,25,25,25]
+    const alignment = [20,20,20,20,20]
     //
 
     let tableHeader = (
@@ -12,6 +12,7 @@ export const DefaultTableList = ({list}) => {
         <tr>
             <th>Atividade</th>
             <th>Horas</th>
+            <th>Tipo</th>
             <th>Status</th>
             <th>Editar</th>
         </tr>
@@ -24,7 +25,7 @@ export const DefaultTableList = ({list}) => {
                 <tr>
                     {Object.keys(element).map((element_key, index) => {
                         return (
-                            <td style={{width:String(alignment[index])+"%"}}>
+                            <td key={element_key} style={{width:String(alignment[index])+"%"}}>
                                 {element[element_key]}
                             </td>
                         )}
