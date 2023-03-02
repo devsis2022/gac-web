@@ -24,16 +24,22 @@ const style = {
 
 export function StudentModal({activity, setActivity, list, label}) {
   const [open, setOpen] = React.useState(false);
-  const [newActivity,setNewActivity] = React.useState({})
-  const formActivity = new FormData()
+  const [newActivity,setNewActivity] = React.useState({
+    type: ''
+  })
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const handleChange = (event) =>{
     setNewActivity({
         ...newActivity,
         [event.target.name]: event.target.value
     })
+  }
+  const handleFile = (event) =>{
+    setNewActivity({
+      ...newActivity,
+      [event.target.name]: event.target.files[0]
+  })
   }
   const handleNumber=(event)=>{
     const regex = /^[0-9\b]+$/;
@@ -48,13 +54,10 @@ export function StudentModal({activity, setActivity, list, label}) {
   }
   const click = () =>{
     console.log(newActivity)
-    console.log(formActivity)
     setNewActivity({
       ...newActivity,
       status: <Waiting>Em Aguardo</Waiting>
     })
-    list.push(newActivity)
-    console.log(list)
   }
 
   return (
@@ -66,7 +69,7 @@ export function StudentModal({activity, setActivity, list, label}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style}>        
           <FColumnGap>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Atividade
@@ -79,7 +82,7 @@ export function StudentModal({activity, setActivity, list, label}) {
           <Select
             labelId='demo-simple-select-label'
             label='Tipo de Atividade'
-            value= ''
+            value= {newActivity.type}
             name='type'
             onChange={handleChange}
           >
@@ -87,9 +90,8 @@ export function StudentModal({activity, setActivity, list, label}) {
             <MenuItem id='type' value={'Tipo 2'}>Tipo 2</MenuItem>
             <MenuItem id='type' value={'Tipo 3'}>Tipo 3</MenuItem>
           </Select>
-          <TextField name='receipt' type={'file'}onChange={handleChange}/>
+          <TextField name='receipt' type={'file'} onChange={handleFile}/>
           <Primary onClick={click} label={'Enviar Atividade'}/>
-
           </FColumnGap>
         </Box>
       </Modal>
