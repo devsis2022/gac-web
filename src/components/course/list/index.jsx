@@ -50,7 +50,7 @@ export const CourseListComponent = () => {
             <CourseEditModal        modalEditIsOpen={modalEditIsOpen}           closeModalEditCourse={closeModalEditCourse}     currentCourse={currentCourse}/>
 
             <CourseListStyled>
-                <CourseFilterComponent                      openModalCreateCourse ={openModalCreateCourse}></CourseFilterComponent>
+                <CourseFilterComponent                      openModalCreateCourse ={openModalCreateCourse}  componentTittle  ={'Lista de Cursos'}></CourseFilterComponent>
                 <CourseList listOfCourses={listOfCourses}   openModalEditCourse   ={ openModalEditCourse }  setCurrentCourse = {setCurrentCourse}></CourseList>
                 
             </CourseListStyled>

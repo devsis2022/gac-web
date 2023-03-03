@@ -4,6 +4,13 @@ export const FormComponent = styled.div`
     margin:0;
 `
 
+export const DFlexRowTable = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+`
+
 export const DFlexRow = styled.div`
     display: flex;
     flex-wrap: nowrap;

@@ -3,18 +3,18 @@ import { StyledAccepted } from "./accepted"
 import { StyledDenied } from "./denied"
 import { StyledWaiting } from "./waiting"
 
-export const Accepted = ()=>{
+export const Accepted = ({content})=>{
     return(
-        <StyledAccepted>Aceito</StyledAccepted>
+        <StyledAccepted>{ content || 'Aceito' }</StyledAccepted>
     )
 }
-export const Denied = () =>{
+export const Denied = ({content}) =>{
     return(
-        <StyledDenied>Negado</StyledDenied>
+        <StyledDenied>{ content ||'Negado' }</StyledDenied>
     )
 }
-export const Waiting = ()=>{
+export const Waiting = ({content})=>{
     return(
-        <StyledWaiting>Em espera</StyledWaiting>
+        <StyledWaiting>{ content ||'Em espera' }</StyledWaiting>
     )
 }

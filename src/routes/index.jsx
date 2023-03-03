@@ -23,9 +23,9 @@ export const AppRoutes = () => {
         <Route
           path="/admin"
           element={
-            <RequireAuth>
+            //<RequireAuth>
               <AdminHome />
-            </RequireAuth>
+            //</RequireAuth>
           }
         />
         <Route path="/gestor" element={<GestorHome />} />
