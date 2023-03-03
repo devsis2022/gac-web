@@ -40,7 +40,7 @@ export const Login = () => {
       return navigate(`/${mainRole}`)
     }
 
-    return navigate('/profile')
+    return navigate('/home')
   }, [navigate])
 
   useEffect(() => {
