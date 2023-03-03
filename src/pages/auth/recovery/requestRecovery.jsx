@@ -2,7 +2,7 @@ import { Button, TextField, Typography } from '@mui/material'
 import { Container, FColumnGap } from '../../../components/form/styles'
 import { authPagesStyles } from '../../../shared/styles/authPagesStyles'
 import { Formik } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toFormikValidationSchema } from 'zod-formik-adapter'
 import { requestRecoveryFormSchema } from '../../../shared/validators/auth/authFormSchemas'
 import { LoadingConsumer } from '../../../context/loadingContext'
@@ -14,15 +14,15 @@ import { parseErrorMessage } from '../../../utils/requestErrorMessage.util'
 
 export const RequestRecovery = () => {
     const loadingConsumer = LoadingConsumer()
+    const navigate = useNavigate()
+
     const submit = async (form) => {
       loadingConsumer.show()
 
       try {
         await AuthService.requestRecovery(form)
 
-        sessionStorage.setItem('email', form.email)
-
-        console.log('Foi');
+        navigate('/validate-recovery', { state: { email: form.email } })
       } catch (error) {
         if (error instanceof AxiosError) {
           const { message } = error.response.data
@@ -35,7 +35,7 @@ export const RequestRecovery = () => {
     }
 
     return (
-      <AuthBaseTemplate title='Esqueci a senha' description='Digite seu e-mail e enviaremos um e-mail para você informando como recuperá-la.'>
+      <AuthBaseTemplate title='Esqueci a senha' description='Digite seu e-mail e enviaremos um código para você recuperá-la.'>
         <Formik initialValues={{ email: '' }} validationSchema={toFormikValidationSchema(requestRecoveryFormSchema)} onSubmit={submit}>
           {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
@@ -47,7 +47,7 @@ export const RequestRecovery = () => {
                 <Button type='submit' disabled={isSubmitting} variant='contained' fullWidth>Recuperar senha</Button>
 
                 <Container>
-                  <Typography typography='h7'>Lembrei sua senha? <Link to="/login" style={authPagesStyles.linkStyle}>Entrar</Link></Typography>
+                  <Typography typography='h7'>Lembrou sua senha? <Link to="/login" style={authPagesStyles.linkStyle}>Entrar</Link></Typography>
                 </Container>
               </FColumnGap>
             </form>
