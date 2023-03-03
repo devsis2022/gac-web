@@ -12,6 +12,17 @@ export const ShadowedContainer = styled.div`
   border-radius: ${(props) => props.borderRadius || ""};
 `;
 
+export const ScrollContainer = styled.div`
+  max-height: ${(props) => props.maxHeight || ""};
+  padding: ${(props) => props.padding || ""};
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: 0.2s;
+`;
+
 export const Container = styled.div`
   padding: ${(props) => props.padding || ""};
   transition: 0.2s;

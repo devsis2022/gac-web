@@ -7,17 +7,22 @@ import { CourseFilterComponent }  from "./filter/index"
 import { CourseCreationModal }    from "../createModal/modal/index"
 import { privateInstance }   from '../../../service/axios'
 import { GlobalConsumer } from '../../../context/globalContext'
+import { LoadingConsumer } from '../../../context/loadingContext'
 import { toast } from 'react-toastify';
 
 export const CourseListComponent = () => {
+    const loadingService = LoadingConsumer()
     const { state } = GlobalConsumer()
 
     //<TODO>
     const [listOfCourses, setListOfCourses] = useState([])
 
     const loadCourses = async () => {
+        loadingService.show()
         try {
+            console.log(state);
             if (!state.selectedRole) {
+                loadingService.hide()
                 return
             }
 
@@ -29,11 +34,12 @@ export const CourseListComponent = () => {
         } catch (error) {
             toast.error('Erro ao realizar a chamada')
         }
+        loadingService.hide()
     }
 
     useEffect(()=>{
         loadCourses();
-    },[])
+    },[state.selectedRole])
 
     const [modalCreationIsOpen, setModalCreationIsOpen] = useState(false)
 

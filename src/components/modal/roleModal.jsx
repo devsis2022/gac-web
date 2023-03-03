@@ -1,6 +1,6 @@
 import { Box, IconButton, Typography } from "@mui/material"
 import { ModalContainer } from './modalContainer'
-import { ShadowedContainer, FColumnGap, FRow } from '../../shared/styles/styles'
+import { ShadowedContainer, FColumnGap, FRow, ScrollContainer } from '../../shared/styles/styles'
 import CloseIcon from '@mui/icons-material/Close'
 import { RoleButton } from "../roleButton";
 
@@ -24,10 +24,14 @@ export const RoleModal = ({ open = false, showClose, onClose, roles, onSelect })
                                 <CloseIcon />
                             </IconButton>
                         </FRow>}
+
                         <Typography variant="h5">Selecione qual perfil e instituição você deseja visualizar</Typography>
-                        {roles && roles.map(role => (
-                            <RoleButton onClick={onSelect} key={`${role.name}-${role.institutionId}-${role.courseId}`} role={role} />
-                        ))}
+
+                        <ScrollContainer maxHeight="400px">
+                            {roles && roles.map(role => (
+                                <RoleButton onClick={onSelect} key={`${role.name}-${role.institutionId}-${role.courseId}`} role={role} />
+                            ))}
+                        </ScrollContainer>
                     </FColumnGap>
                 </ShadowedContainer>
             </Box>
