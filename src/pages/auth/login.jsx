@@ -34,6 +34,13 @@ export const Login = () => {
   }
 
   const goToHome = useCallback(() => {
+    const stringfiedRole = localStorage.getItem('role')
+
+    if (stringfiedRole) {
+      const role = JSON.parse(stringfiedRole)
+
+      return navigate(`/${role.name}`)
+    }
     return navigate('/home')
   }, [navigate])
 

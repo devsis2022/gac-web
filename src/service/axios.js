@@ -1,12 +1,12 @@
 import axios, { AxiosError } from "axios";
 
 export const publicInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:9000",
   headers: { "Content-Type": "application/json" },
 });
 
 export const privateInstance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:9000",
   headers: { "Content-Type": "application/json" },
 });
 

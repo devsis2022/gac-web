@@ -24,10 +24,10 @@ const styles = {
 }
 
 export const Header = ({ children }) => {
+    const [anchorEl, setAnchorEl] = useState(null);
     const loadingService = LoadingConsumer()
     const { authed, logout } = AuthConsumer()
     const { state, dispatch } = GlobalConsumer()
-    const [anchorEl, setAnchorEl] = useState(null);
     const [showModal, setShowModal] = useState(false)
 
     const goToProfile = () => {
@@ -66,8 +66,14 @@ export const Header = ({ children }) => {
             selectedRole: findRole
         }))
 
-        if (window.location.pathname !== `/${findRole.name}`) {
-            window.location.href = `/${findRole.name}`
+        navigate(findRole, false)
+    }
+
+    const navigate = (role, canOutProfile) => {
+        const currentPath = window.location.pathname
+
+        if (currentPath !== `/${role.name}` && (canOutProfile && currentPath === '/user-profile')) {
+            window.location.href = `/${role.name}`
         }
     }
 
@@ -108,30 +114,36 @@ export const Header = ({ children }) => {
         loadingService.hide()
     }, [])
 
+    const handleModalClose = (event, reason) => {
+        if (reason !== 'backdropClick') {
+            setShowModal(false)
+        }
+    }
+
     useEffect(() => {
         if (!authed) {
             return
         }
         requestInfo()
-    }, [authed, requestInfo])
+    }, [requestInfo])
 
     useEffect(() => {
         if (!authed) {
             return
         }
         handleOpenModal()
-    }, [authed, state.userRoles])
+    }, [state.userRoles])
 
     return (
         <>
-            <RoleModal open={showModal} showClose={state.selectedRole} onClose={() => setShowModal(false)} onSelect={handleRoleSelect} roles={state.userRoles}/>
+            <RoleModal open={showModal} showClose={state.selectedRole} onClose={handleModalClose} onSelect={handleRoleSelect} roles={state.userRoles}/>
 
             {(authed && state.selectedRole) && <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
                     <Toolbar>
                         <FRow alignItems="center" justifyContent="space-between">
                             <FRow alignItems="center">
-                                <RoleModalButton onClick={() => setShowModal(true)}>
+                                <RoleModalButton onClick={() => navigate(state.selectedRole, true)}>
                                     <Typography title="Ir para a página principal" variant="h6" component="div">Olá, {state.userInfo.name}</Typography>
                                 </RoleModalButton>
                             </FRow>
