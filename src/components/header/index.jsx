@@ -31,6 +31,7 @@ export const Header = ({ children }) => {
     const [showModal, setShowModal] = useState(false)
 
     const goToProfile = () => {
+        setAnchorEl(null)
         window.location.href = '/user-profile'
     }
 
@@ -120,6 +121,11 @@ export const Header = ({ children }) => {
         }
     }
 
+    const handleLogout = () => {
+        setAnchorEl(null)
+        logout()
+    }
+
     useEffect(() => {
         if (!authed) {
             return
@@ -137,8 +143,8 @@ export const Header = ({ children }) => {
     return (
         <>
             <RoleModal open={showModal} showClose={state.selectedRole} onClose={handleModalClose} onSelect={handleRoleSelect} roles={state.userRoles}/>
-
-            {(authed && state.selectedRole) && <Box sx={{ flexGrow: 1 }}>
+            {(authed && state.selectedRole) &&
+            <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
                     <Toolbar>
                         <FRow alignItems="center" justifyContent="space-between">
@@ -160,7 +166,7 @@ export const Header = ({ children }) => {
                                 <Menu id="menu-appbar" anchorEl={anchorEl} anchorOrigin={styles.anchorOrigin} keepMounted transformOrigin={styles.transformOrigin} open={Boolean(anchorEl)} onClose={handleClose} >
                                     <MenuItem onClick={goToProfile}>Perfil</MenuItem>
 
-                                    <MenuItem onClick={logout}>Sair</MenuItem>
+                                    <MenuItem onClick={handleLogout}>Sair</MenuItem>
                                 </Menu>
                             </FRow>
                         </FRow>
