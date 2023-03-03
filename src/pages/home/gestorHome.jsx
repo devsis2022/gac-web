@@ -1,11 +1,10 @@
 import { CourseListComponent } from "../../components/course/list/index"
-import { Profile } from '../../components/profile'
+import { Container } from '../../shared/styles/styles'
 
 export const GestorHome = () => {
   return (
-    <div>
-      <Profile/>
+    <Container padding="32px">
       <CourseListComponent></CourseListComponent>
-    </div>
+    </Container>
   )
 }

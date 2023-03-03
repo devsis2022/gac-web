@@ -5,49 +5,29 @@ import { CourseListStyled } from "./styled"
 import { CourseEditModal }  from "../editModal/modal/index"
 import { CourseFilterComponent }  from "./filter/index"
 import { CourseCreationModal }    from "../createModal/modal/index"
+import { privateInstance }   from '../../../service/axios'
+import { GlobalConsumer } from '../../../context/globalContext'
+import { toast } from 'react-toastify';
 
-import { publicInstance }   from '../../../service/axios'
-
-export const    CourseListComponent = () => {
+export const CourseListComponent = () => {
+    const { state } = GlobalConsumer()
 
     //<TODO>
-    const [listOfCourses, setListOfCourses] = useState([
-        {
-            name:"Nome primeiro curso",
-            description:"Este é o primeiro curso",
-            coordinator:"Coord. 1"
-        },
-        {
-            name:"Nome segundo curso",
-            description:"Este é o primeiro curso",
-            coordinator:"Coord. 1"
-        },
-        {
-            name:"Nome terceiro curso",
-            description:"Este é o primeiro curso",
-            coordinator:"Coord. 1"
-        },
-        {
-            name:"Nome quarto curso",
-            description:"Este é o primeiro curso",
-            coordinator:"Coord. 1"
-        }
-    ])
+    const [listOfCourses, setListOfCourses] = useState([])
 
     const loadCourses = async () => {
-        alert('loading')
-        if(!sessionStorage.getItem('token')) { window.location.pathname = ('/login'); return; }
-
         try {
-            const tokenFormat = 'Bearer ' + sessionStorage.getItem('token');
-            //TODO
-            const institutionId = "1"
-            const response = await publicInstance.get(`/institution/${institutionId}/courses`, { headers: {'authorization':tokenFormat}})
-            
-            alert(JSON.stringify(response.data))
+            if (!state.selectedRole) {
+                return
+            }
+
+            const { institutionId } = state.selectedRole
+
+            const { data } = await privateInstance.get(`/institution/${institutionId}/courses`)
+
+            setListOfCourses(data.data)
         } catch (error) {
-            alert(error)
-            console.log(error)
+            toast.error('Erro ao realizar a chamada')
         }
     }
 

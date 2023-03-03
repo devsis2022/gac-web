@@ -6,7 +6,7 @@ export const CourseList = ({listOfCourses, openModalEditCourse, setCurrentCourse
         <CourseListStyled>
             {listOfCourses.map((course)=>{
                 return(
-                    <div className="course">
+                    <div className="course" key={course.id}>
                         <p>{course.name}</p>
                         <div className="actions">
                             <i className="fa fa-pen" onClick={ () => { setCurrentCourse(course); openModalEditCourse()} } ></i>

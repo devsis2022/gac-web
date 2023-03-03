@@ -18,11 +18,14 @@ export const Container = styled.div`
 `;
 
 export const IconContainer = styled.div`
-  width: ${(props) => props.size || "auto"};
-  height: ${(props) => props.size || "auto"};
+  width: ${(props) => props.width || "auto"};
+  height: ${(props) => props.height || "auto"};
   padding: ${(props) => props.padding || ""};
   background-color: ${(props) => props.backgroundColor || ""};
   border-radius: ${(props) => props.borderRadius || ""};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: 0.2s;
 `;
 

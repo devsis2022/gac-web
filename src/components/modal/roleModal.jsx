@@ -26,7 +26,7 @@ export const RoleModal = ({ open = false, showClose, onClose, roles, onSelect })
                         </FRow>}
                         <Typography variant="h5">Selecione qual perfil e instituição você deseja visualizar</Typography>
                         {roles && roles.map(role => (
-                            <RoleButton onClick={onSelect} key={`${role.name}-${role.institutionId}`} role={role} />
+                            <RoleButton onClick={onSelect} key={`${role.name}-${role.institutionId}-${role.courseId}`} role={role} />
                         ))}
                     </FColumnGap>
                 </ShadowedContainer>

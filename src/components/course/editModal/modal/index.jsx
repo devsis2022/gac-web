@@ -15,7 +15,7 @@ export const CourseEditModal = ({modalEditIsOpen, closeModalEditCourse, currentC
 
     return(
         <Modal isOpen={modalEditIsOpen}     onRequestClose={closeModalEditCourse} style={customStyles}>
-            <i class="fa-solid fa-close"    onClick={closeModalEditCourse}></i> 
+            <i className="fa-solid fa-close"    onClick={closeModalEditCourse}></i> 
             <CouseEditContent currentCourse={currentCourse} closeModalEditCourse={closeModalEditCourse} />
         </Modal>
     )
