@@ -39,3 +39,9 @@ export const registerFormInitialValues = {
 export const requestRecoveryFormSchema = z.object({
   email: z.string(requiredMessage).email("Email inválido")
 });
+
+export const resetPasswordFormSchema = z.object({
+  password: z.string(requiredMessage).min(6, passwordMinMessage)
+})
+
+export const validateRecoveryFormSchema = z.string(requiredMessage).length(6, 'Digite os 6 digitos');

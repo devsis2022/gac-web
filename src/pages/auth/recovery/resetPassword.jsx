@@ -2,33 +2,47 @@ import { Button, TextField, Typography } from '@mui/material'
 import { Container, FColumnGap } from '../../../components/form/styles'
 import { authPagesStyles } from '../../../shared/styles/authPagesStyles'
 import { Formik } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { toFormikValidationSchema } from 'zod-formik-adapter'
-import { requestRecoveryFormSchema } from '../../../shared/validators/auth/authFormSchemas'
+import { resetPasswordFormSchema } from '../../../shared/validators/auth/authFormSchemas'
 import { LoadingConsumer } from '../../../context/loadingContext'
 import { AuthBaseTemplate } from '../authBaseTemplate'
+import { AuthService } from '../../../service/authService'
+import { toast } from 'react-toastify'
 
 export const ResetPassword = () => {
     const loadingConsumer = LoadingConsumer()
-    const submit = (form) => {
-      const { email } = form
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    const submit = async (form) => {
       loadingConsumer.show()
 
-      setTimeout(loadingConsumer.hide, 2000)
+      const body = {
+        ...location.state,
+        ...form
+      }
 
+      try {
+        await AuthService.resetPassword(body)
 
-      console.log(email);
-        return true
+        toast.success('Senha alterada com sucesso')
+        navigate('/login')
+      } catch (error) {
+        toast.error('Erro ao realizar a solicitação')
+      }
+
+      loadingConsumer.hide()
     }
 
     return (
-      <AuthBaseTemplate title='Esqueci a senha' description='Digite seu e-mail e enviaremos um e-mail para você informando como recuperá-la.'>
-        <Formik initialValues={{ email: '' }} validationSchema={toFormikValidationSchema(requestRecoveryFormSchema)} onSubmit={submit}>
+      <AuthBaseTemplate title='Nova senha' description='Digite sua nova senha.'>
+        <Formik initialValues={{ password: '' }} validationSchema={toFormikValidationSchema(resetPasswordFormSchema)} onSubmit={submit}>
           {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
             <form onSubmit={handleSubmit}>
               <FColumnGap>
                 <FColumnGap>
-                  <TextField label='Email' type='email' name='email' placeholder='Digite seu email' value={values.email} onChange={handleChange} onBlur={handleBlur} size='small' variant='standard' error={!!(touched.email && errors.email)} helperText={touched.email && errors.email}/>
+                  <TextField label='Senha' type='password' name='password' placeholder='Digite sua nova senha' value={values.password} onChange={handleChange} onBlur={handleBlur} size='small' variant='standard' error={!!(touched.password && errors.password)} helperText={touched.password && errors.password}/>
                 </FColumnGap>
 
                 <Button type='submit' disabled={isSubmitting} variant='contained' fullWidth>Recuperar senha</Button>
