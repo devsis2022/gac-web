@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { publicInstance } from '../service/axios'
 
+const checkAuthState = () => !!sessionStorage.getItem('token')
+
 export const useAuth = () => {
-  const [authed, setAuthed] = React.useState(false)
+  const [authed, setAuthed] = React.useState(checkAuthState())
 
   const login = async (user, password) => {
     try {
@@ -21,6 +23,7 @@ export const useAuth = () => {
   const logout = () => {
     sessionStorage.removeItem('token')
     setAuthed(false)
+
   }
 
   return {

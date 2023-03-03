@@ -6,7 +6,7 @@ import { TextField } from '@mui/material'
 import { Select } from '@mui/material'
 import { MenuItem } from '@mui/material'
 import { InputLabel } from '@mui/material'
-import { FColumnGap } from '../form/styles'
+import { FColumnGap } from '../../shared/styles/styles'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 
@@ -69,7 +69,7 @@ export function StudentModal({activity, setActivity, list, label}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>        
+        <Box sx={style}>
           <FColumnGap>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Atividade

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Container, FColumnGap } from '../../components/form/styles'
+import { Container, FColumnGap } from '../../shared/styles/styles'
 import { Button, TextField, Typography } from '@mui/material'
 import { Formik } from 'formik'
 import { toFormikValidationSchema } from 'zod-formik-adapter'
