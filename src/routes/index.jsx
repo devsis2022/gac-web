@@ -8,6 +8,8 @@ import { MainRoleChoice } from '../pages/home/mainRoleChoice'
 import { RequestRecovery } from '../pages/auth/recovery/requestRecovery'
 import { Login } from '../pages/auth/login'
 import { Register } from '../pages/auth/register'
+import { ValidateRecovery } from '../pages/auth/recovery/validateRecovery'
+import { ResetPassword } from '../pages/auth/recovery/resetPassword'
 
 export const AppRoutes = () => {
   return (
@@ -17,8 +19,8 @@ export const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/request-recovery" element={<RequestRecovery />} />
-        <Route path="/validate-recovery" element={<RequestRecovery />} />
-        <Route path="/reset-password" element={<RequestRecovery />} />
+        <Route path="/validate-recovery" element={<ValidateRecovery />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/role-choice" element={<MainRoleChoice />} />
         <Route
           path="/admin"
