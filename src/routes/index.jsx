@@ -4,14 +4,13 @@ import { AdminHome } from '../pages/home/adminHome'
 import { GestorHome } from '../pages/home/gestorHome'
 import { CoordinatorHome } from '../pages/home/coordinatorHome'
 import { RequireAuth } from '../components/auth'
-import { MainRoleChoice } from '../pages/home/mainRoleChoice'
 import { RequestRecovery } from '../pages/auth/recovery/requestRecovery'
 import { Login } from '../pages/auth/login'
 import { Logout } from '../pages/auth/logout'
 import { Register } from '../pages/auth/register'
 import { ValidateRecovery } from '../pages/auth/recovery/validateRecovery'
 import { ResetPassword } from '../pages/auth/recovery/resetPassword'
-import Tooltip from '@mui/material/Tooltip';
+import { Profile } from '../pages/home/profile'
 
 export const AppRoutes = () => {
   return (
@@ -24,7 +23,7 @@ export const AppRoutes = () => {
         <Route path="/request-recovery" element={<RequestRecovery />} />
         <Route path="/validate-recovery" element={<ValidateRecovery />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/role-choice" element={<MainRoleChoice />} />
+        <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
         <Route
           path="/admin"
           element={
