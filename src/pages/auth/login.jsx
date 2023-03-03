@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { Formik } from 'formik';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { Button, Typography, TextField } from '@mui/material'
-import { Container, FColumnGap } from '../../components/form/styles'
+import { Container, FColumnGap } from '../../shared/styles/styles'
 import { AuthConsumer } from '../../context/authContext'
 import { authPagesStyles } from '../../shared/styles/authPagesStyles';
 import { loginFormSchema } from '../../shared/validators/auth/authFormSchemas';
@@ -20,13 +20,17 @@ export const Login = () => {
     const { user, password } = form;
     loadingConsumer.show()
 
-    if (!await login(user, password)) {
+    try {
+      const token = await login(user, password)
+
+      if (!token) {
+        toast.error('Erro ao realizar o login')
+      }
+    } catch (error) {
       toast.error('Erro ao realizar o login')
     }
 
     loadingConsumer.hide()
-
-    return
   }
 
   const goToHome = useCallback(() => {
@@ -36,7 +40,7 @@ export const Login = () => {
       return navigate(`/${mainRole}`)
     }
 
-    return navigate('/role-choice')
+    return navigate('/profile')
   }, [navigate])
 
   useEffect(() => {

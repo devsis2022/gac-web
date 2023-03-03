@@ -1,5 +1,5 @@
 import { Avatar, Typography } from "@mui/material"
-import { Center, Container, ContainerQueryHide, FColumnGap, FRow, FullSize, ShadowedContainer } from "../../components/form/styles"
+import { Center, Container, ContainerQueryHide, FColumnGap, FRow, FullSize, ShadowedContainer } from "../../shared/styles/styles"
 import { authPagesStyles } from "../../shared/styles/authPagesStyles"
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 

@@ -1,5 +1,5 @@
 import { Button, TextField, Typography } from '@mui/material'
-import { Container, FColumnGap } from '../../../components/form/styles'
+import { Container, FColumnGap } from '../../../shared/styles/styles'
 import { authPagesStyles } from '../../../shared/styles/authPagesStyles'
 import { Formik } from 'formik'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
