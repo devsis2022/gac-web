@@ -34,12 +34,6 @@ export const Login = () => {
   }
 
   const goToHome = useCallback(() => {
-    const mainRole = localStorage.getItem('mainRole')
-
-    if (mainRole) {
-      return navigate(`/${mainRole}`)
-    }
-
     return navigate('/home')
   }, [navigate])
 

@@ -6,7 +6,6 @@ import { CoordinatorHome } from '../pages/home/coordinatorHome'
 import { RequireAuth } from '../components/auth'
 import { RequestRecovery } from '../pages/auth/recovery/requestRecovery'
 import { Login } from '../pages/auth/login'
-import { Logout } from '../pages/auth/logout'
 import { Register } from '../pages/auth/register'
 import { ValidateRecovery } from '../pages/auth/recovery/validateRecovery'
 import { ResetPassword } from '../pages/auth/recovery/resetPassword'
@@ -21,7 +20,6 @@ export const AppRoutes = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
           <Route path="/register" element={<Register />} />
           <Route path="/request-recovery" element={<RequestRecovery />} />
           <Route path="/validate-recovery" element={<ValidateRecovery />} />
