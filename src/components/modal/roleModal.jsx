@@ -1,6 +1,7 @@
-import { Box, Typography } from "@mui/material"
+import { Box, IconButton, Typography } from "@mui/material"
 import { ModalContainer } from './modalContainer'
-import { ShadowedContainer, FColumnGap } from '../../shared/styles/styles'
+import { ShadowedContainer, FColumnGap, FRow } from '../../shared/styles/styles'
+import CloseIcon from '@mui/icons-material/Close'
 import { RoleButton } from "../roleButton";
 
 const style = {
@@ -12,12 +13,17 @@ const style = {
     outline: '0'
 };
 
-export const RoleModal = ({ open = false, onClose, roles, onSelect }) => {
+export const RoleModal = ({ open = false, showClose, onClose, roles, onSelect }) => {
     return (
         <ModalContainer open={open} onClose={onClose} keepMounted>
             <Box sx={style}>
                 <ShadowedContainer padding="24px" borderRadius="5px" style={{ backgroundColor: 'white' }} >
                     <FColumnGap>
+                        {showClose && <FRow justifyContent="flex-end">
+                            <IconButton onClick={onClose}>
+                                <CloseIcon />
+                            </IconButton>
+                        </FRow>}
                         <Typography variant="h5">Selecione qual perfil e instituição você deseja visualizar</Typography>
                         {roles && roles.map(role => (
                             <RoleButton onClick={onSelect} key={`${role.name}-${role.institutionId}`} role={role} />

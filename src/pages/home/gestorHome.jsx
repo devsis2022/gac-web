@@ -5,7 +5,7 @@ export const GestorHome = () => {
   return (
     <div>
       <Profile/>
-      <CourseListComponent></CourseListComponent>        
+      <CourseListComponent></CourseListComponent>
     </div>
   )
 }

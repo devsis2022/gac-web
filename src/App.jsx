@@ -10,11 +10,11 @@ const App = () => {
 
   return (
     <>
+      <AppRoutes />
       <Backdrop sx={{ zIndex: 10 }} open={isLoading}>
           <CircularProgress color="inherit" />
       </Backdrop>
       <ToastContainer />
-      <AppRoutes />
     </>
   )
 }

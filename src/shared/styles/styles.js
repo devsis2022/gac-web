@@ -6,6 +6,7 @@ export const FullSize = styled.div`
 `;
 
 export const ShadowedContainer = styled.div`
+  width: ${(props) => props.width || ""};
   padding: ${(props) => props.padding || "16px"};
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
   border-radius: ${(props) => props.borderRadius || ""};

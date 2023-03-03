@@ -10,32 +10,30 @@ import { Logout } from '../pages/auth/logout'
 import { Register } from '../pages/auth/register'
 import { ValidateRecovery } from '../pages/auth/recovery/validateRecovery'
 import { ResetPassword } from '../pages/auth/recovery/resetPassword'
-import { Profile } from '../pages/home/profile'
+import { Home } from '../pages/home/home'
+import { UserProfile } from '../pages/user/userProfile'
+import { Header } from '../components/header'
 
 export const AppRoutes = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/request-recovery" element={<RequestRecovery />} />
-        <Route path="/validate-recovery" element={<ValidateRecovery />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
-        <Route
-          path="/admin"
-          element={
-            <RequireAuth>
-              <AdminHome />
-            </RequireAuth>
-          }
-        />
-        <Route path="/manager" element={<GestorHome />} />
-        <Route path="/student" element={<StudentHome />} />
-        <Route path="/coordinator" element={<CoordinatorHome />} />
-      </Routes>
-    </BrowserRouter>
+    <Header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/request-recovery" element={<RequestRecovery />} />
+          <Route path="/validate-recovery" element={<ValidateRecovery />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
+          <Route path="/user-profile" element={<RequireAuth><UserProfile /></RequireAuth>} />
+          <Route path="/admin" element={<RequireAuth><AdminHome /></RequireAuth>} />
+          <Route path="/manager" element={<RequireAuth><GestorHome /></RequireAuth>} />
+          <Route path="/student" element={<RequireAuth><StudentHome /></RequireAuth>} />
+          <Route path="/coordinator" element={<RequireAuth><CoordinatorHome /></RequireAuth>} />
+        </Routes>
+      </BrowserRouter>
+    </Header>
   )
 }
