@@ -7,13 +7,9 @@ import { Accepted } from '../../components/alerts/alerts'
 import { Waiting } from '../../components/alerts/alerts'
 import { Primary } from '../../components/buttons/Primary'
 
-
-
 export const StudentHome = () => {
   const [activity, setActivity] = useState({})
-  const [activitiesType, setActivitiesType] = useState([
-    {}
-  ])
+  const [activitiesType, setActivitiesType] = useState([{}])
 
   const options = [
     {
