@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Accepted, Waiting } from '../../alerts/alerts';
+import { Accepted, Denied, Waiting } from '../../alerts/alerts';
 import { StyledI } from '../../i/styled';
+import { I } from '../../i/index'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,29 +12,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { DFlexRowTable } from '../../form/styled';
 import { publicInstance } from '../../../service/axios';
-
-const instuitions = [
-  {
-    tittle: "IFSul Gravataí",
-    create_time: '12/01/2018',
-    status: 'Aprovado'
-  },
-  {
-    tittle: "Ufrgs",
-    create_time: '12/03/2015',
-    status: 'Aprovado'
-  },
-  {
-    tittle: "Ulbra",
-    create_time: '12/01/2018',
-    status: 'Aprovado'
-  },
-  {
-    tittle: "IFSul Gravataí",
-    create_time: '12/01/2018',
-    status: 'Em Aguardo'
-  }
-]
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -62,34 +40,37 @@ export default function AdminList() {
   
   React.useEffect(()=>{
     publicInstance
-    .get('/institution',{headers:{'Authorization': sessionStorage.getItem('token')}})
+    .get('/institution',{headers:{'authorization': 'Bearer ' + sessionStorage.getItem('token')}})
     .then((response) => {
       response.data.data.map((data)=>{
         const auxData = Date(new Date(data.createdAt)).split(' ')
-        console.log(auxData)
         data.createdAt = `${auxData[2]} ${auxData[1]} ${auxData[3]}`
       })
       console.log(response.data.data)
       setInstitutions(response.data.data)
+    })
+    .catch((err)=>{
+      console.log(err)
     })
   },[])
   
   const aprovados = []
   const aguardo = []
   institutions.map((instuition) => {
-    if(instuition.status === 'Aprovado'){
+    if(instuition.status !== 'pending'){
       aprovados.push(instuition)
     }else{
+      if(instuition.status === 'pending'){
+        instuition.status = <Waiting content='Em aguardo'/>
+      }else{
+        instuition.status = <Denied content='Reprovado'/>
+      }
       aguardo.push(instuition)
     }
     return(
       instuition
     )
   })
-
-  const aprovar = () => {
-
-  }
 
   return (
     <div>
@@ -132,7 +113,7 @@ export default function AdminList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {aguardo.map((row) => (
+            {aguardo.map((row) => (              
               <StyledTableRow
                 key={row.name}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -141,12 +122,11 @@ export default function AdminList() {
                   {row.name}
                 </TableCell>
                 <TableCell align="center">{row.createdAt}</TableCell>
-                <TableCell align="center">{
-                  <Waiting content='Em aguardo'/>}</TableCell>
+                <TableCell align="center">{row.status}</TableCell>
                 <TableCell align='center'>
                   <DFlexRowTable>
-                    <StyledI className="fa fa-check" onClick={aprovar}/>
-                    <StyledI className="fa fa-close"/>
+                    <I faLabel="fa fa-check" method={'put'} url={`/institution/${row.id}/activate`} header={{headers:{'authorization': 'Bearer ' + sessionStorage.getItem('token')}}}/>
+                    <I faLabel="fa fa-close" method={'put'} url={`/institution/${row.id}/repprove`} header={{headers:{'authorization': 'Bearer ' + sessionStorage.getItem('token')}}}/>
                   </DFlexRowTable>
                 </TableCell>
               </StyledTableRow>

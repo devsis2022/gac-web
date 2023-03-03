@@ -6,7 +6,7 @@ const passwordMinMessage = "A senha deve ter no mínimo 6 caracteres";
 
 export const loginFormSchema = z.object({
   user: z.string(requiredMessage),
-  password: z.string(requiredMessage).min(6, passwordMinMessage),
+  //password: z.string(requiredMessage).min(6, passwordMinMessage),
 });
 
 export const registerFormSchema = z.object({

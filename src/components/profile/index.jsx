@@ -49,7 +49,7 @@ export const Profile = () =>{
             <div className="fa-container center">
                 <Tooltip title={"Sair da sua conta"} placement="left">
                     <button className="center">
-                        <a href="/logout"><i class="fa fa-power-off center"></i></a>
+                        <a href="/logout"><i className="fa fa-power-off center"></i></a>
                     </button>
                 </Tooltip>
             </div>

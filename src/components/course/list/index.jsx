@@ -8,7 +8,7 @@ import { CourseCreationModal }    from "../createModal/modal/index"
 
 import { publicInstance }   from '../../../service/axios'
 
-export const CourseListComponent = () => {
+export const    CourseListComponent = () => {
 
     //<TODO>
     const [listOfCourses, setListOfCourses] = useState([
