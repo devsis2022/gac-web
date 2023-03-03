@@ -13,6 +13,16 @@ export const ShadowedContainer = styled.div`
 `;
 
 export const Container = styled.div`
+  padding: ${(props) => props.padding || ""};
+  transition: 0.2s;
+`;
+
+export const IconContainer = styled.div`
+  width: ${(props) => props.size || "auto"};
+  height: ${(props) => props.size || "auto"};
+  padding: ${(props) => props.padding || ""};
+  background-color: ${(props) => props.backgroundColor || ""};
+  border-radius: ${(props) => props.borderRadius || ""};
   transition: 0.2s;
 `;
 
