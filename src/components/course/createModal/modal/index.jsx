@@ -3,7 +3,7 @@ import {CouseCreationContent} from "../content/index"
 
 Modal.setAppElement('#root')
 
-export const CourseCreationModal = ({modalCreationIsOpen, closeModalCreateCourse}) => {
+export const CourseCreationModal = ({modalCreationIsOpen, closeModalCreateCourse, loadCourses}) => {
     const customStyles = {
         content: {
           top: '4%',
@@ -16,7 +16,7 @@ export const CourseCreationModal = ({modalCreationIsOpen, closeModalCreateCourse
     return(
         <Modal isOpen={modalCreationIsOpen} onRequestClose={closeModalCreateCourse} style={customStyles}>
             <i class="fa-solid fa-close" onClick={closeModalCreateCourse}></i> 
-            <CouseCreationContent closeModalCreateCourse = {closeModalCreateCourse}/>
+            <CouseCreationContent closeModalCreateCourse = {closeModalCreateCourse} loadCourses={loadCourses}/>
         </Modal>
     )
 }

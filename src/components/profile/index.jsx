@@ -10,6 +10,8 @@ export const Profile = () =>{
         switch(role){
             case "student":
                 return 'Aluno'
+            case "manager":
+                return 'Gestor'
             default:
                 return ''
         }

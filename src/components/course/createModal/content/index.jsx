@@ -6,13 +6,17 @@ import Autocomplete from '@mui/material/Autocomplete';
 import debounce     from 'lodash.debounce' 
 
 import { CourseCreationStyled } from "./styled"
+import { publicInstance }       from "../../../../service/axios"
 
-export const CouseCreationContent = ({closeModalCreateCourse}) => {
+export const CouseCreationContent = ({closeModalCreateCourse, loadCourses}) => {
 
     const [name,        setName]         = useState("");
     const [description, setDescription]  = useState("");
-    const [coordinator, setCoordinator]  = useState("");
-    // const [institution, setiInstitution] = useState("");
+
+    //TODO
+    const [coordinator, setCoordinator]  = useState("6");
+    const [institution, setiInstitution] = useState("2");
+    const userId = 6;
 
     const [coordinatorList,setCoordinatorList] = useState([
         {id:1,
@@ -30,6 +34,7 @@ export const CouseCreationContent = ({closeModalCreateCourse}) => {
         searchCoordinator(event.target.value);
     }, 500)
 
+    //TODO
     const searchCoordinator = (char) => {
         console.log(`[LOG] searching coordinator "${char}"`);
     }
@@ -39,7 +44,31 @@ export const CouseCreationContent = ({closeModalCreateCourse}) => {
     }
 
     const saveCourse = async () => {
-        alert('saving course')
+        alert('saving')
+        if(!sessionStorage.getItem('token')) { window.location.pathname = ('/login'); return; }
+        
+        try {
+            const tokenFormat = 'Bearer ' + sessionStorage.getItem('token');
+            const newCouse = {
+                "name":name,
+                "coordinatorId":coordinator,
+                "description":description,
+                "institutionId":institution,
+                "userId":userId
+            }
+            
+            //TODO -> not saving
+            const response = await publicInstance
+                .get(`/institution/${newCouse.institutionId}/courses`
+                    , newCouse
+                    , { headers: {'authorization':tokenFormat}
+            });
+
+        }catch (error) {
+            console.log(error)
+        }
+
+        loadCourses();
         closeModalCreateCourse();
     }
 

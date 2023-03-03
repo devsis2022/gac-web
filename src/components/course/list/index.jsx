@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { CourseListStyled }from "./styled"
-import { CourseFilterComponent } from "./filter/index"
-import { CourseList } from "./list/index"
-import { CourseCreationModal } from "../createModal/modal/index"
-import { CourseEditModal } from "../editModal/modal/index"
+import { CourseList }       from "./list/index"
+import { CourseListStyled } from "./styled"
+import { CourseEditModal }  from "../editModal/modal/index"
+import { CourseFilterComponent }  from "./filter/index"
+import { CourseCreationModal }    from "../createModal/modal/index"
+
+import { publicInstance }   from '../../../service/axios'
 
 export const CourseListComponent = () => {
 
@@ -31,7 +33,27 @@ export const CourseListComponent = () => {
             coordinator:"Coord. 1"
         }
     ])
-    //</TODO>
+
+    const loadCourses = async () => {
+        alert('loading')
+        if(!sessionStorage.getItem('token')) { window.location.pathname = ('/login'); return; }
+
+        try {
+            const tokenFormat = 'Bearer ' + sessionStorage.getItem('token');
+            //TODO
+            const institutionId = "1"
+            const response = await publicInstance.get(`/institution/${institutionId}/courses`, { headers: {'authorization':tokenFormat}})
+            
+            alert(JSON.stringify(response.data))
+        } catch (error) {
+            alert(error)
+            console.log(error)
+        }
+    }
+
+    useEffect(()=>{
+        loadCourses();
+    },[])
 
     const [modalCreationIsOpen, setModalCreationIsOpen] = useState(false)
 
@@ -46,13 +68,12 @@ export const CourseListComponent = () => {
 
     return(
         <div>
-            <CourseCreationModal    modalCreationIsOpen={modalCreationIsOpen}   closeModalCreateCourse={closeModalCreateCourse}/>
+            <CourseCreationModal    modalCreationIsOpen={modalCreationIsOpen}   closeModalCreateCourse={closeModalCreateCourse} loadCourses={loadCourses}/>
             <CourseEditModal        modalEditIsOpen={modalEditIsOpen}           closeModalEditCourse={closeModalEditCourse}     currentCourse={currentCourse}/>
 
             <CourseListStyled>
                 <CourseFilterComponent                      openModalCreateCourse ={openModalCreateCourse}  componentTittle  ={'Lista de Cursos'}></CourseFilterComponent>
                 <CourseList listOfCourses={listOfCourses}   openModalEditCourse   ={ openModalEditCourse }  setCurrentCourse = {setCurrentCourse}></CourseList>
-                
             </CourseListStyled>
         </div>
     )

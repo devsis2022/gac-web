@@ -33,7 +33,7 @@ export const AppRoutes = () => {
             //</RequireAuth>
           }
         />
-        <Route path="/gestor" element={<GestorHome />} />
+        <Route path="/manager" element={<GestorHome />} />
         <Route path="/student" element={<StudentHome />} />
         <Route path="/coordinator" element={<CoordinatorHome />} />
       </Routes>
